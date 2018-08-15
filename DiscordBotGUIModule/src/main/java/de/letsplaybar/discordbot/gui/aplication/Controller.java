@@ -349,6 +349,18 @@ public class Controller {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+                current_playlist.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                        MusicModule music = MusicModule.getInstance();
+                        try {
+                            music.getPlayer().play(Bot.getInstance().getBot().getVoiceChannelById(id.get(channel.getValue())).getGuild(),SQLModule.getInstance().getSongURL(curr_play,current_playlist.getItems().get(newValue.intValue())));
+                            ((GuiTrackManager)music.getPlayer().getTrackManager(Bot.getInstance().getBot().getVoiceChannelById(id.get(channel.getValue())).getGuild())).setPos(newValue.intValue());
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
         });
         edit.setOnAction(new EventHandler<ActionEvent>() {
