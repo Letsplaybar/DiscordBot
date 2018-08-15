@@ -84,11 +84,11 @@ public class GuiTrackManager  extends TrackManager {
             pos = new Random().nextInt(size);
         }else {
             pos++;
-            if(pos == size)
+            if(pos >= size)
                 pos = 0;
         }
         try {
-            this.player.play(getChannel().getGuild().getMember(Bot.getInstance().getBot().getSelfUser()), SQLModule.getInstance().getSongURL(gui.getGui().getController().getCurr_play(),gui.getGui().getController().getCurrent_playlist().getItems().get(pos)));
+            this.player.play(getChannel().getGuild(), SQLModule.getInstance().getSongURL(gui.getGui().getController().getCurr_play(),gui.getGui().getController().getCurrent_playlist().getItems().get(pos)));
         } catch (SQLException e) {
             e.printStackTrace();
         }

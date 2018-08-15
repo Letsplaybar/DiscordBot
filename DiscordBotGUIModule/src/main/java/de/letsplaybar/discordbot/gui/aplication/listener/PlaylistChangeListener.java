@@ -20,20 +20,20 @@ public class PlaylistChangeListener implements ChangeListener<Number> {
         Controller controller = GUIModule.getInstance().getGui().getController();
         Guild guild = Bot.getInstance().getBot().getVoiceChannelById(controller.getId().get(controller.getChannel().getValue())).getGuild();
         int pos = newValue.intValue();
+        System.out.println(pos);
         if(Bot.getInstance().getBot() == null)
             return;
         if(guild == null || !guild.getAudioManager().isConnected())
             return;
         if(controller.getCurrent_playlist().getItems().size() == 0)
             return;
-        Member member = Bot.getInstance().getBot().getVoiceChannelById(controller.getId().get(controller.getChannel().getSelectionModel().getSelectedItem())).getGuild().getMemberById(Bot.getInstance().getBot().getSelfUser().getId());
         music.getPlayer().stop(guild);
         try {
-            music.getPlayer().play(guild,SQLModule.getInstance().getSongURL(controller.getCurr_play(),controller.getCurrent_playlist().getItems().get(newValue.intValue())));
+            music.getPlayer().play(guild,SQLModule.getInstance().getSongURL(controller.getCurr_play(),controller.getCurrent_playlist().getItems().get(pos)));
+            ((GuiTrackManager)music.getPlayer().getTrackManager(guild)).setPos(pos);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        ((GuiTrackManager)music.getPlayer().getTrackManager(guild)).setPos(pos);
 
     }
 }
