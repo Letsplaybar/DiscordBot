@@ -47,6 +47,8 @@ public class Player {
     }
 
     public TrackManager getTrackManager(Guild guild) {
+        if(players.get(guild.getId()) == null)
+            return null;
         return players.get(guild.getId()).getValue();
     }
 

@@ -40,6 +40,8 @@ public class GuiTrackManager  extends TrackManager {
         gui.getGui().getController().getCurrent().setText("0");
         gui.getGui().getController().getTimeEnd().setText(getTimeStamp(track.getDuration()));
         gui.getGui().getController().getTitle().setText(track.getInfo().author + " - "+track.getInfo().title);
+        if(pos == -1)
+            pos = 0;
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -86,7 +88,7 @@ public class GuiTrackManager  extends TrackManager {
                 pos = 0;
         }
         try {
-            this.player.play(getChannel().getGuild(), SQLModule.getInstance().getSongURL(gui.getGui().getController().getCurr_play(),gui.getGui().getController().getCurrent_playlist().getItems().get(pos)));
+            this.player.play(getChannel().getGuild().getMember(Bot.getInstance().getBot().getSelfUser()), SQLModule.getInstance().getSongURL(gui.getGui().getController().getCurr_play(),gui.getGui().getController().getCurrent_playlist().getItems().get(pos)));
         } catch (SQLException e) {
             e.printStackTrace();
         }

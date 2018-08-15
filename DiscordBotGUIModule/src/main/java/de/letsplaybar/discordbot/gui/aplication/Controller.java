@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import de.letsplaybar.discordbot.command.utils.CommandListener;
 import de.letsplaybar.discordbot.gui.aplication.help.about.About;
 import de.letsplaybar.discordbot.gui.aplication.help.log.Log;
+import de.letsplaybar.discordbot.gui.aplication.listener.PlaylistChangeListener;
 import de.letsplaybar.discordbot.gui.aplication.playlist.create.Playlist;
 import de.letsplaybar.discordbot.gui.aplication.playlist.delete.Delete;
 import de.letsplaybar.discordbot.gui.aplication.playlist.edit.Playlistedit;
@@ -101,6 +102,8 @@ public class Controller {
     private @Getter @Setter Permission permission;
 
     private @Getter String curr_play;
+
+    private PlaylistChangeListener listener;
 
     @FXML
     void startBot(ActionEvent event) {
@@ -215,7 +218,8 @@ public class Controller {
     @FXML
     void start(ActionEvent event) {
         MusicModule music = MusicModule.getInstance();
-        ((GuiTrackManager)music.getPlayer().getTrackManager(Bot.getInstance().getBot().getVoiceChannelById(id.get(channel.getValue())).getGuild())).setPos(current_playlist.getSelectionModel().getSelectedIndex());
+        if(music.getPlayer().getTrackManager(Bot.getInstance().getBot().getVoiceChannelById(id.get(channel.getValue())).getGuild()) != null)
+            ((GuiTrackManager)music.getPlayer().getTrackManager(Bot.getInstance().getBot().getVoiceChannelById(id.get(channel.getValue())).getGuild())).setPos(current_playlist.getSelectionModel().getSelectedIndex());
         try {
             if(current_playlist.getItems().size()>0)
             music.getPlayer().play(Bot.getInstance().getBot().getVoiceChannelById(id.get(channel.getValue())).getGuild(),SQLModule.getInstance().getSongURL(curr_play,current_playlist.getValue()== null? current_playlist.getItems().get(0):current_playlist.getValue()));
@@ -277,7 +281,7 @@ public class Controller {
         assert deletePlaylist != null : "fx:id=\"deletePlaylist\" was not injected: check your FXML file 'GUI.fxml'.";
         assert volume_size != null : "fx:id=\"volume_size\" was not injected: check your FXML file 'GUI.fxml'.";
         assert shuffle != null : "fx:id=\"shuffle\" was not injected: check your FXML file 'GUI.fxml'.";
-
+        listener = new PlaylistChangeListener();
         try {
             SQLModule.getInstance().getPlayList().stream().forEach(play -> {
                 addPlaylist(play);
@@ -286,18 +290,7 @@ public class Controller {
             e.printStackTrace();
         }
 
-        current_playlist.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                MusicModule music = MusicModule.getInstance();
-                try {
-                    music.getPlayer().play(Bot.getInstance().getBot().getVoiceChannelById(id.get(channel.getValue())).getGuild(),SQLModule.getInstance().getSongURL(curr_play,current_playlist.getItems().get(newValue.intValue())));
-                    ((GuiTrackManager)music.getPlayer().getTrackManager(Bot.getInstance().getBot().getVoiceChannelById(id.get(channel.getValue())).getGuild())).setPos(newValue.intValue());
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        current_playlist.getSelectionModel().selectedIndexProperty().addListener(listener);
         channel.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -341,6 +334,8 @@ public class Controller {
         list.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                current_playlist.getSelectionModel().selectedIndexProperty().removeListener(listener);
+                current_playlist.getSelectionModel().clearSelection();
                 current_playlist.getItems().clear();
                 try {
                     SQLModule.getInstance().getPlaylistTitel(name).stream().forEach( song ->
@@ -349,18 +344,7 @@ public class Controller {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                current_playlist.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                        MusicModule music = MusicModule.getInstance();
-                        try {
-                            music.getPlayer().play(Bot.getInstance().getBot().getVoiceChannelById(id.get(channel.getValue())).getGuild(),SQLModule.getInstance().getSongURL(curr_play,current_playlist.getItems().get(newValue.intValue())));
-                            ((GuiTrackManager)music.getPlayer().getTrackManager(Bot.getInstance().getBot().getVoiceChannelById(id.get(channel.getValue())).getGuild())).setPos(newValue.intValue());
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+                current_playlist.getSelectionModel().selectedIndexProperty().addListener(listener);
             }
         });
         edit.setOnAction(new EventHandler<ActionEvent>() {
