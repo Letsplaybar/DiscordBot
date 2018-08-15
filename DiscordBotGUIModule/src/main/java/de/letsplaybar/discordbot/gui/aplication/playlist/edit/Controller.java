@@ -55,13 +55,25 @@ public class Controller {
     }
 
     @FXML
-    void playlist_create(ActionEvent event) {
+    void playlist_create(ActionEvent event) throws SQLException {
         SQLModule sql = SQLModule.getInstance();
         String name = this.name.getText();
+        GUI gui = GUIModule.getInstance().getGui();
+        SQLModule.getInstance().getPlaylistTitel(name).stream().forEach( n -> {
+            if(!playlist_items.getItems().contains(n)){
+                try {
+                    SQLModule.getInstance().removeSong(name,n);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                if(gui.getController().getCurr_play().equals(name) && gui.getController().getCurrent_playlist().getItems().contains(n)){
+                    gui.getController().getCurrent_playlist().getItems().remove(n);
+                }
+            }
+        });
         playlist_items.getItems().stream().forEach( s -> {
             try {
                 sql.addSong(name,s.getName(),s.getUrl());
-                GUI gui = GUIModule.getInstance().getGui();
                 if(gui.getController().getCurr_play().equals(name) && !gui.getController().getCurrent_playlist().getItems().contains(s)){
                     gui.getController().getCurrent_playlist().getItems().add(s.getName());
                 }
@@ -70,7 +82,6 @@ public class Controller {
                 e.printStackTrace();
             }
         });
-
 
         ((Stage)playlist_items.getScene().getWindow()).close();
     }

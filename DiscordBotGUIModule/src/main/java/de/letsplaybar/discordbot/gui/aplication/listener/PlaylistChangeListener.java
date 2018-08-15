@@ -34,6 +34,6 @@ public class PlaylistChangeListener implements ChangeListener<Number> {
             e.printStackTrace();
         }
         ((GuiTrackManager)music.getPlayer().getTrackManager(guild)).setPos(pos);
-        
+
     }
 }
