@@ -59,6 +59,8 @@ public class Controller {
         SQLModule sql = SQLModule.getInstance();
         String name = this.name.getText();
         GUI gui = GUIModule.getInstance().getGui();
+        gui.getController().getCurrent_playlist().getSelectionModel().selectedIndexProperty().removeListener(gui.getController().getListener());
+        String pos = gui.getController().getCurrent_playlist().getValue();
         SQLModule.getInstance().getPlaylistTitel(name).stream().forEach( n -> {
             if(!playlist_items.getItems().contains(n)){
                 try {
@@ -82,7 +84,9 @@ public class Controller {
                 e.printStackTrace();
             }
         });
-
+        if(gui.getController().getCurrent_playlist().getItems().contains(pos))
+            gui.getController().getCurrent_playlist().setValue(pos);
+        gui.getController().getCurrent_playlist().getSelectionModel().selectedIndexProperty().addListener(gui.getController().getListener());
         ((Stage)playlist_items.getScene().getWindow()).close();
     }
 

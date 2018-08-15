@@ -103,7 +103,7 @@ public class Controller {
 
     private @Getter String curr_play;
 
-    private PlaylistChangeListener listener;
+    private @Getter PlaylistChangeListener listener;
 
     @FXML
     void startBot(ActionEvent event) {
