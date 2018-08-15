@@ -8,14 +8,16 @@ import java.sql.*;
  *         Created on 07.04.2017.
  */
 public class SQLLite {
-    public Connection con;
+    private Connection con;
 
-
+    public boolean exist(){
+      return new File(".data/",".db.db").exists();
+    }
 
     public void connect() throws ClassNotFoundException {
         Class.forName("org.sqlite.JDBC");
         try {
-            con = DriverManager.getConnection("jdbc:sqlite://"+new File("./").getAbsolutePath()+"db.db");
+            con = DriverManager.getConnection("jdbc:sqlite://"+new File(".data/.").getAbsolutePath()+"db.db");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -60,7 +62,7 @@ public class SQLLite {
             Statement stm = con.createStatement();
             System.out.println("Ausgefuehrte Abfrage: " + query);
             stm.executeUpdate(query);
-
+            stm.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -72,16 +74,18 @@ public class SQLLite {
         boolean isInDatabase = false;
 
         ResultSet rs = query("SELECT * FROM " + tabelle + " WHERE " + spalte + " = '" + key + "'");
+        try {
+            if (rs.next()) {
+                isInDatabase = true;
+            } else {
+                isInDatabase = false;
 
-        if (rs.next()) {
-            isInDatabase = true;
-        } else {
-            isInDatabase = false;
+            }
 
+            return Boolean.valueOf(isInDatabase).booleanValue();
+        }finally {
+            rs.close();
         }
-
-        return Boolean.valueOf(isInDatabase).booleanValue();
-
 
     }
 

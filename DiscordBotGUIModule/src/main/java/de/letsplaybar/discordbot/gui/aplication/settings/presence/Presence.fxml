@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="360.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.letsplaybar.discordbot.gui.aplication.settings.presence.Controller">
+   <children>
+      <Text id="state" layoutX="34.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="State" />
+      <TextField id="state_field" fx:id="state_field" layoutX="127.0" layoutY="29.0" prefHeight="25.0" prefWidth="436.0" />
+      <Text id="details" layoutX="30.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Details" />
+      <Text id="appid" layoutX="33.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Application ID" />
+      <Text id="limage" layoutX="34.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="large Image" />
+      <Text id="simage" layoutX="34.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="small Image" />
+      <Text id="ltext" layoutX="35.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="large Text" />
+      <Text id="stext" layoutX="39.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="small Text" />
+      <TextField id="details_field" fx:id="details_field" layoutX="127.0" layoutY="66.0" prefHeight="25.0" prefWidth="436.0" />
+      <TextField id="appid_field" fx:id="appid_field" layoutX="127.0" layoutY="101.0" prefHeight="25.0" prefWidth="436.0" />
+      <TextField id="limage_field" fx:id="limage_field" layoutX="127.0" layoutY="139.0" prefHeight="25.0" prefWidth="436.0" />
+      <TextField id="simage_field" fx:id="simage_field" layoutX="127.0" layoutY="175.0" prefHeight="25.0" prefWidth="436.0" />
+      <TextField id="ltext_field" fx:id="ltext_field" layoutX="127.0" layoutY="212.0" prefHeight="25.0" prefWidth="436.0" />
+      <TextField id="stext_field" fx:id="stext_field" layoutX="127.0" layoutY="248.0" prefHeight="25.0" prefWidth="436.0" />
+      <Button id="ok" layoutX="511.0" layoutY="307.0" mnemonicParsing="false" onAction="#ok" text="OK" />
+      <Button id="cancel" layoutX="442.0" layoutY="307.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+   </children>
+</AnchorPane>

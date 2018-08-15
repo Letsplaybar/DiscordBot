@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="250.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.letsplaybar.discordbot.gui.aplication.settings.status.Controller">
+   <children>
+      <Text id="online" layoutX="43.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Online - Mode" />
+      <Text id="streamt" layoutX="46.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Streamt" />
+      <Text id="spielt" layoutX="52.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spielt" />
+      <TextField id="spielt_field" fx:id="spielt_field" layoutX="160.0" layoutY="128.0" prefHeight="25.0" prefWidth="371.0" />
+      <ChoiceBox id="stream_box" fx:id="stream_box" layoutX="160.0" layoutY="91.0" prefHeight="25.0" prefWidth="371.0" />
+      <ChoiceBox id="online_box" fx:id="online_box" layoutX="160.0" layoutY="54.0" prefHeight="25.0" prefWidth="371.0" />
+      <Button id="ok" layoutX="515.0" layoutY="188.0" mnemonicParsing="false" onAction="#ok" text="OK" />
+      <Button id="cancel" layoutX="442.0" layoutY="188.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+   </children>
+</AnchorPane>

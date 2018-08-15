@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.letsplaybar.discordbot.gui.aplication.Controller">
+   <children>
+      <MenuBar prefHeight="25.0" prefWidth="600.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Bot">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#startBot" text="Start" />
+                  <MenuItem mnemonicParsing="false" onAction="#stopBot" text="Stop" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#restartBot" text="Restart" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Music">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#createPlaylist" text="Neue Playlist anlegen" />
+                  <Menu fx:id="playlists" mnemonicParsing="false" text="Playlists" />
+                  <SeparatorMenuItem id="sep" mnemonicParsing="false" />
+                  <Menu fx:id="editPlaylist" mnemonicParsing="false" text="Playlist bearbeiten" />
+                  <Menu fx:id="deletePlaylist" mnemonicParsing="false" text="Playlist löschen" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Settings">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#openToken" text="Tokens" />
+                  <MenuItem mnemonicParsing="false" onAction="#openStatus" text="Status" />
+                  <MenuItem mnemonicParsing="false" onAction="#openRichPresence" text="Rich Presence" />
+                  <SeparatorMenuItem id="sep" mnemonicParsing="false" />
+                  <MenuItem id="perms" mnemonicParsing="false" onAction="#perms" text="Permissions" />
+                  <MenuItem mnemonicParsing="false" onAction="#openSettings" text="Weiteres" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#openFAQ" text="FAQ" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#openLog" text="Log" />
+              <MenuItem mnemonicParsing="false" onAction="#openAbout" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <ProgressBar fx:id="duration" layoutX="47.0" layoutY="191.0" prefHeight="18.0" prefWidth="509.0" progress="0.0" />
+      <Text fx:id="current" layoutX="25.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--:--" />
+      <Text fx:id="timeEnd" layoutX="545.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--:--" />
+      <Text fx:id="title" layoutX="86.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--- ----" textAlignment="CENTER" wrappingWidth="434.87890625" />
+      <ChoiceBox fx:id="channel" layoutX="383.0" layoutY="47.0" prefHeight="25.0" prefWidth="184.0" />
+      <ChoiceBox fx:id="current_playlist" layoutX="383.0" layoutY="83.0" prefHeight="25.0" prefWidth="184.0" />
+      <Text layoutX="320.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Channel: " />
+      <Text layoutX="329.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Playlist:" />
+      <Button fx:id="skip" layoutX="55.0" layoutY="219.0" mnemonicParsing="false" onAction="#skip" text="Skip" />
+      <Button fx:id="start" layoutX="179.0" layoutY="219.0" mnemonicParsing="false" onAction="#start" text="Start" />
+      <Button fx:id="pause" layoutX="238.0" layoutY="219.0" mnemonicParsing="false" onAction="#pause" text="Pause" />
+      <Button fx:id="stop" layoutX="303.0" layoutY="219.0" mnemonicParsing="false" onAction="#stop" text="Stop" />
+      <ToggleButton fx:id="shuffle" layoutX="422.0" layoutY="219.0" mnemonicParsing="false" text="Shuffle" />
+      <Button layoutX="498.0" layoutY="219.0" mnemonicParsing="false" onAction="#leave" text="Leave" />
+      <Button fx:id="mute" layoutX="349.0" layoutY="345.0" mnemonicParsing="false" onAction="#mute" text="Mute" />
+      <ScrollBar fx:id="volume" layoutX="399.0" layoutY="351.0" max="200.0" prefHeight="14.0" prefWidth="174.0" value="100.0" />
+      <TextField fx:id="volume_size" editable="false" layoutX="298.0" layoutY="346.0" prefHeight="25.0" prefWidth="44.0" />
+   </children>
+</AnchorPane>

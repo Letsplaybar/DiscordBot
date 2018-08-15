@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="254.0" prefWidth="503.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.letsplaybar.discordbot.gui.aplication.playlist.delete.Controller">
+   <children>
+      <Text id="msg" fx:id="msg" layoutX="76.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bist du dir sicher das du &quot;%n&quot; löschen willst?">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Button id="yes" layoutX="421.0" layoutY="194.0" mnemonicParsing="false" onAction="#yes" text="Yes" />
+      <Button id="no" layoutX="350.0" layoutY="194.0" mnemonicParsing="false" onAction="#no" text="Cancel" />
+   </children>
+</AnchorPane>

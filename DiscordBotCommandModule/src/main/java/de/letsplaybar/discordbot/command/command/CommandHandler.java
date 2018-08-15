@@ -18,8 +18,7 @@ public class CommandHandler {
 
     public static void handleCommand(CommandParser.CommandContainer cmd) throws ParseException {
         try {
-            if(SQLModule.getInstance().getSql().isInDatabase(cmd.event.getMember().getUser().getId(),"Permissions","Userid")|| SQLModule.getInstance().getSql().isInDatabase("*","Permissions","Userid"))
-            if(commands.containsKey(cmd.invoke)){
+            if(commands.containsKey(cmd.invoke)&& SQLModule.getInstance().hasPermission(cmd.event.getAuthor().getId(),commands.get(cmd.invoke).getPerm())){
                 boolean safe = commands.get(cmd.invoke).called(cmd.args,cmd.event);
                 if(!safe){
                     try {
@@ -31,6 +30,7 @@ public class CommandHandler {
                     cmd.event.getChannel().sendTyping().complete();
                     commands.get(cmd.invoke).executed(safe,cmd.event);
                 }else{
+                    cmd.event.getChannel().sendTyping().complete();
                     commands.get(cmd.invoke).executed(safe,cmd.event);
                 }
             }

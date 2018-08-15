@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="166.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.letsplaybar.discordbot.gui.aplication.settings.weiteres.Controller">
+   <children>
+      <Text id="cmd" layoutX="37.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Command - Zeichen" />
+      <TextField id="cmd_field" fx:id="cmd_field" layoutX="164.0" layoutY="46.0" prefHeight="25.0" prefWidth="363.0" />
+      <Button id="ok" layoutX="514.0" layoutY="119.0" mnemonicParsing="false" onAction="#ok" text="OK" />
+      <Button id="cancel" layoutX="444.0" layoutY="119.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+   </children>
+</AnchorPane>

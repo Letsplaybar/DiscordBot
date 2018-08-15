@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.letsplaybar.discordbot.gui.aplication.settings.perms.Controller">
+   <children>
+      <TableView id="permissions" fx:id="permissions" layoutX="14.0" layoutY="27.0" prefHeight="265.0" prefWidth="566.0">
+        <columns>
+          <TableColumn id="name" fx:id="name" prefWidth="133.0" text="Name" />
+          <TableColumn id="id" fx:id="id" prefWidth="167.0" text="ID" />
+            <TableColumn id="perm" fx:id="perm" prefWidth="265.0" text="Permissions" />
+        </columns>
+      </TableView>
+      <Button id="add" layoutX="424.0" layoutY="292.0" mnemonicParsing="false" onAction="#add" text="Add" />
+      <Button id="edit" layoutX="478.0" layoutY="292.0" mnemonicParsing="false" onAction="#edit" text="Edit" />
+      <Button id="Delete" layoutX="529.0" layoutY="292.0" mnemonicParsing="false" onAction="#Delete" text="Delete" />
+      <Button id="ok" layoutX="536.0" layoutY="354.0" mnemonicParsing="false" onAction="#ok" prefHeight="25.0" prefWidth="37.0" text="OK" />
+   </children>
+</AnchorPane>

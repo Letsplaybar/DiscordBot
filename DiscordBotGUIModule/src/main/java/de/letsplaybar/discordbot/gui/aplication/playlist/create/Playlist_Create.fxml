@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="618.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.letsplaybar.discordbot.gui.aplication.playlist.create.Controller">
+   <children>
+      <Text layoutX="35.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Playlist - Name" />
+      <TextField id="name" fx:id="name" layoutX="151.0" layoutY="36.0" prefHeight="25.0" prefWidth="443.0" />
+      <ListView id="playlist_items" fx:id="playlist_items" layoutX="151.0" layoutY="78.0" prefHeight="172.0" prefWidth="443.0" />
+      <TextField id="playlist_item_adder" fx:id="playlist_item_adder_name" layoutX="152.0" layoutY="275.0" prefHeight="25.0" prefWidth="351.0" promptText="name" />
+      <Text layoutX="14.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Füge ein Element hinzu" />
+      <Button id="playlist_item_add" layoutX="503.0" layoutY="275.0" mnemonicParsing="false" onAction="#playlist_item_add" text="add" />
+      <Button id="playlist_item_remove" layoutX="542.0" layoutY="250.0" mnemonicParsing="false" onAction="#playlist_item_remove" text="remove" />
+      <Button id="playlist_create" layoutX="540.0" layoutY="355.0" mnemonicParsing="false" onAction="#playlist_create" text="Create" />
+      <Button id="cancel" layoutX="477.0" layoutY="355.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+      <TextField id="playlist_item_adder" fx:id="playlist_item_adder_url" layoutX="152.0" layoutY="306.0" prefHeight="25.0" prefWidth="351.0" promptText="url" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.letsplaybar.discordbot.gui.aplication.settings.perms.edit.Controller">
+   <children>
+      <Text id="name" layoutX="51.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
+      <Text id="id" layoutX="51.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
+      <Text id="permission" layoutX="49.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Permission" />
+      <TextField id="name_field" fx:id="name_field" layoutX="120.0" layoutY="40.0" prefHeight="25.0" prefWidth="423.0" />
+      <TextField id="id_field" fx:id="id_field" layoutX="120.0" layoutY="76.0" prefHeight="25.0" prefWidth="423.0" />
+      <ListView id="permview" fx:id="permview" layoutX="120.0" layoutY="110.0" prefHeight="138.0" prefWidth="423.0" />
+      <TextField id="perm_field" fx:id="perm_field" layoutX="120.0" layoutY="281.0" prefHeight="25.0" prefWidth="423.0" />
+      <Button id="add" layoutX="505.0" layoutY="248.0" mnemonicParsing="false" onAction="#add" text="Add" />
+      <Button id="ok" layoutX="517.0" layoutY="348.0" mnemonicParsing="false" onAction="#ok" text="OK" />
+      <Button id="cancel" layoutX="453.0" layoutY="348.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+      <Button id="remove" layoutX="446.0" layoutY="248.0" mnemonicParsing="false" onAction="#remove" text="Remove" />
+   </children>
+</AnchorPane>

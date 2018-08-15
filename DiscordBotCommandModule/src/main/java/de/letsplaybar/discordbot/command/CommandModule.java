@@ -2,6 +2,7 @@ package de.letsplaybar.discordbot.command;
 
 import de.letsplaybar.discordbot.command.command.Command;
 import de.letsplaybar.discordbot.command.command.CommandHandler;
+import de.letsplaybar.discordbot.command.commands.*;
 import de.letsplaybar.discordbot.main.module.Module;
 import de.letsplaybar.discordbot.sql.SQLModule;
 import lombok.Getter;
@@ -29,12 +30,24 @@ public class CommandModule implements Module {
 
     @Override
     public void load() {
-
+        registerCommand("weather",new Weather());
+        registerCommand("umfrage",new Umfrage());
+        registerCommand("help",new Help());
+        registerCommand("gifg",new GIPHY());
+        registerCommand("gift",new TENOR());
+        registerCommand("image",new IMAGE());
+        registerCommand("music", new Music());
     }
 
     @Override
     public void unload() {
-
+        unregisterCommand("weather");
+        unregisterCommand("umfrage");
+        unregisterCommand("help");
+        unregisterCommand("gifg");
+        unregisterCommand("gift");
+        unregisterCommand("image");
+        unregisterCommand("music");
     }
 
     public String getCommand() {
@@ -44,7 +57,7 @@ public class CommandModule implements Module {
                 return rs.getString("Value");
         } catch (SQLException e) {
         }
-        return "";
+        return "/";
     }
 
     public void setCommand(String key){
@@ -59,5 +72,10 @@ public class CommandModule implements Module {
 
     public void registerCommand(String cmd, Command command){
         CommandHandler.commands.put(cmd,command);
+    }
+
+
+    public void unregisterCommand(String cmd){
+        CommandHandler.commands.remove(cmd);
     }
 }

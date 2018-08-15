@@ -15,4 +15,5 @@ public interface Command {
     void action(String[] args, GuildMessageReceivedEvent event) throws ParseException, IOException;
     void executed(boolean success, GuildMessageReceivedEvent event);
     String help();
+    String getPerm();
 }
