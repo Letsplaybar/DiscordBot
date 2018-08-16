@@ -37,7 +37,6 @@ public class CommandlineModule implements Module {
                 String line;
                 while ((line =scanner.readLine())!= null){
                     try {
-                        System.out.println(line);
                         CommandHandler.handleCommand(new CommandParser().parse(line));
                     } catch (ParseException e) {
                         e.printStackTrace();
