@@ -23,7 +23,15 @@ public class LogStreamParse {
                 File zipfile = new File(".data/log/",formater.format(new Date()).replace(" ","_").replace(":",".")+".zip");
                 zipfile.createNewFile();
                 ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipfile));
-                out.putNextEntry(new ZipEntry(file.getPath()+"/last.log"));
+                out.putNextEntry(new ZipEntry(file.getName()));
+                byte[] buf = new byte[1024*4];
+                FileInputStream fis = new FileInputStream(file);
+                int len = fis.read(buf);
+                while(len > -1){
+                    out.write(buf,0,len);
+                    len= fis.read(buf);
+                }
+                fis.close();
                 out.closeEntry();
                 out.close();
                 file.delete();
