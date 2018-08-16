@@ -20,7 +20,6 @@ public class PlaylistChangeListener implements ChangeListener<Number> {
         Controller controller = GUIModule.getInstance().getGui().getController();
         Guild guild = Bot.getInstance().getBot().getVoiceChannelById(controller.getId().get(controller.getChannel().getValue())).getGuild();
         int pos = newValue.intValue();
-        System.out.println(pos);
         if(Bot.getInstance().getBot() == null)
             return;
         if(guild == null || !guild.getAudioManager().isConnected())
