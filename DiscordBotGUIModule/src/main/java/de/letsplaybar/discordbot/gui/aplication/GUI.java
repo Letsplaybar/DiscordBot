@@ -12,7 +12,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -48,6 +50,13 @@ public class GUI  extends Application{
         Pane pane = loader.load();
         scene = new Scene(pane);
         controller = loader.getController();
+        if(new File(".data/Style.css").exists()){
+            try {
+                scene.getStylesheets().add(new File(".data/","Style.css").toURL().toExternalForm());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
         stage = primaryStage;
         primaryStage.setTitle("DiscordBot");
         primaryStage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("/img/Logo.png")));
