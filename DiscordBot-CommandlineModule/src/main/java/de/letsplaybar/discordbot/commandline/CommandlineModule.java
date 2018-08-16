@@ -5,6 +5,8 @@ import de.letsplaybar.discordbot.commandline.command.CommandHandler;
 import de.letsplaybar.discordbot.commandline.command.CommandParser;
 import de.letsplaybar.discordbot.commandline.commands.Discord;
 import de.letsplaybar.discordbot.commandline.commands.Help;
+import de.letsplaybar.discordbot.commandline.commands.Permissions;
+import de.letsplaybar.discordbot.commandline.commands.Set;
 import de.letsplaybar.discordbot.main.module.Module;
 import lombok.Getter;
 
@@ -27,6 +29,8 @@ public class CommandlineModule implements Module {
         scanner = new Scanner(System.in);
         registerCommand("discord", new Discord());
         registerCommand("help", new Help());
+        registerCommand("set", new Set());
+        registerCommand("permission", new Permissions());
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -56,5 +60,7 @@ public class CommandlineModule implements Module {
         thread.interrupt();
         unregisterCommand("discord");
         unregisterCommand("help");
+        unregisterCommand("set");
+        unregisterCommand("permission");
     }
 }
