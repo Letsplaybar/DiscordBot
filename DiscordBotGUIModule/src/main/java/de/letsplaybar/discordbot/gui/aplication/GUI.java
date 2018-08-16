@@ -2,6 +2,8 @@ package de.letsplaybar.discordbot.gui.aplication;
 
 import de.letsplaybar.discordbot.gui.GUIModule;
 import de.letsplaybar.discordbot.main.Main;
+import de.letsplaybar.discordbot.main.module.Module;
+import de.letsplaybar.discordbot.main.module.ModuleLoader;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +16,7 @@ import lombok.Setter;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

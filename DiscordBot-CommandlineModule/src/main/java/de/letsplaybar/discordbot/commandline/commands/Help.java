@@ -14,6 +14,7 @@ public class Help implements Command {
     @Override
     public void action(String[] args) throws ParseException, IOException {
         System.out.println("help - display all commands");
+        System.out.println("exit - stop Programm");
         System.out.println("discord start - Start the Bot");
         System.out.println("discord stop - Stop the Bot");
         System.out.println("discord restart - Restart the Bot");

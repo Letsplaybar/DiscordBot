@@ -7,6 +7,7 @@ import de.letsplaybar.discordbot.gui.aplication.Controller;
 import de.letsplaybar.discordbot.main.Bot;
 import de.letsplaybar.discordbot.main.module.ModuleLoader;
 import de.letsplaybar.discordbot.sql.SQLModule;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import net.dv8tion.jda.core.entities.Game;
@@ -36,16 +37,22 @@ public class Discord implements Command {
                             e.printStackTrace();
                         }
                         if(ModuleLoader.getInstance().getRegisterModulesName().contains("GUIModule")){
-                            Controller con = GUIModule.getInstance().getGui().getController();
-                            ObservableList<String> list = FXCollections.observableArrayList();
-                            Bot.getInstance().getBot().getGuilds().stream().forEach(g ->{
-                                list.add("==========["+g.getName()+"]==========");
-                                g.getVoiceChannels().stream().forEach(v->{
-                                    list.add(v.getName());
-                                    con.getId().put(v.getName(),v.getIdLong());
-                                });
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Controller con = GUIModule.getInstance().getGui().getController();
+                                    ObservableList<String> list = FXCollections.observableArrayList();
+                                    Bot.getInstance().getBot().getGuilds().stream().forEach(g ->{
+                                        list.add("==========["+g.getName()+"]==========");
+                                        g.getVoiceChannels().stream().forEach(v->{
+                                            list.add(v.getName());
+                                            con.getId().put(v.getName(),v.getIdLong());
+                                        });
+                                    });
+                                    con.getChannel().setItems(list);
+                                }
                             });
-                            con.getChannel().setItems(list);
+
                         }
                         System.out.println("Bot Started");
                     }
@@ -56,9 +63,15 @@ public class Discord implements Command {
                     public void run() {
                         Bot.getInstance().stopBot();
                         if(ModuleLoader.getInstance().getRegisterModulesName().contains("GUIModule")){
-                            Controller con = GUIModule.getInstance().getGui().getController();
-                            con.getChannel().setValue(null);
-                            con.getChannel().getItems().clear();
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Controller con = GUIModule.getInstance().getGui().getController();
+                                    con.getChannel().setValue(null);
+                                    con.getChannel().getItems().clear();
+                                }
+                            });
+
                         }
                         System.out.println("Bot stopped");
                     }
@@ -69,9 +82,15 @@ public class Discord implements Command {
                     public void run() {
                         Bot.getInstance().stopBot();
                         if(ModuleLoader.getInstance().getRegisterModulesName().contains("GUIModule")){
-                            Controller con = GUIModule.getInstance().getGui().getController();
-                            con.getChannel().setValue(null);
-                            con.getChannel().getItems().clear();
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Controller con = GUIModule.getInstance().getGui().getController();
+                                    con.getChannel().setValue(null);
+                                    con.getChannel().getItems().clear();
+                                }
+                            });
+
                         }
                         System.out.println("Bot stopped");
                         SQLModule sql = SQLModule.getInstance();
@@ -81,16 +100,22 @@ public class Discord implements Command {
                             e.printStackTrace();
                         }
                         if(ModuleLoader.getInstance().getRegisterModulesName().contains("GUIModule")){
-                            Controller con = GUIModule.getInstance().getGui().getController();
-                            ObservableList<String> list = FXCollections.observableArrayList();
-                            Bot.getInstance().getBot().getGuilds().stream().forEach(g ->{
-                                list.add("==========["+g.getName()+"]==========");
-                                g.getVoiceChannels().stream().forEach(v->{
-                                    list.add(v.getName());
-                                    con.getId().put(v.getName(),v.getIdLong());
-                                });
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Controller con = GUIModule.getInstance().getGui().getController();
+                                    ObservableList<String> list = FXCollections.observableArrayList();
+                                    Bot.getInstance().getBot().getGuilds().stream().forEach(g ->{
+                                        list.add("==========["+g.getName()+"]==========");
+                                        g.getVoiceChannels().stream().forEach(v->{
+                                            list.add(v.getName());
+                                            con.getId().put(v.getName(),v.getIdLong());
+                                        });
+                                    });
+                                    con.getChannel().setItems(list);
+                                }
                             });
-                            con.getChannel().setItems(list);
+
                         }
                         System.out.println("Bot Started");
                     }

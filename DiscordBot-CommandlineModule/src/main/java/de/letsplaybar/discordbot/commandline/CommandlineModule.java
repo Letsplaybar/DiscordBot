@@ -3,20 +3,19 @@ package de.letsplaybar.discordbot.commandline;
 import de.letsplaybar.discordbot.commandline.command.Command;
 import de.letsplaybar.discordbot.commandline.command.CommandHandler;
 import de.letsplaybar.discordbot.commandline.command.CommandParser;
-import de.letsplaybar.discordbot.commandline.commands.Discord;
-import de.letsplaybar.discordbot.commandline.commands.Help;
-import de.letsplaybar.discordbot.commandline.commands.Permissions;
-import de.letsplaybar.discordbot.commandline.commands.Set;
+import de.letsplaybar.discordbot.commandline.commands.*;
+import de.letsplaybar.discordbot.commandline.util.CancelableReader;
 import de.letsplaybar.discordbot.main.module.Module;
 import lombok.Getter;
 
+import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.util.Scanner;
 
 public class CommandlineModule implements Module {
 
     private static @Getter CommandlineModule instance;
-    private Scanner scanner;
+    private @Getter CancelableReader scanner;
     private Thread thread;
 
     @Override
@@ -26,17 +25,20 @@ public class CommandlineModule implements Module {
 
     @Override
     public void load() {
-        scanner = new Scanner(System.in);
+        scanner = new CancelableReader(new InputStreamReader(System.in));
         registerCommand("discord", new Discord());
         registerCommand("help", new Help());
         registerCommand("set", new Set());
         registerCommand("permission", new Permissions());
+        registerCommand("exit", new Exit());
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (scanner.hasNextLine()){
+                String line;
+                while ((line =scanner.readLine())!= null){
                     try {
-                        CommandHandler.handleCommand(new CommandParser().parse(scanner.nextLine()));
+                        System.out.println(line);
+                        CommandHandler.handleCommand(new CommandParser().parse(line));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -56,11 +58,12 @@ public class CommandlineModule implements Module {
 
     @Override
     public void unload() {
-        scanner.close();
+        scanner.cancelRead();
         thread.interrupt();
         unregisterCommand("discord");
         unregisterCommand("help");
         unregisterCommand("set");
         unregisterCommand("permission");
+        unregisterCommand("exit");
     }
 }

@@ -50,6 +50,13 @@ public class ModuleLoader {
         }
     }
 
+    public Module getModule(String module){
+        if(modules.keySet().contains(module)){
+            return modules.get(module);
+        }
+        return null;
+    }
+
     public List<String> getRegisterModulesName(){
         return new ArrayList<>(modules.keySet());
     }

@@ -23,6 +23,7 @@ import de.letsplaybar.discordbot.main.module.ModuleLoader;
 import de.letsplaybar.discordbot.music.MusicModule;
 import de.letsplaybar.discordbot.gui.music.GuiTrackManager;
 import de.letsplaybar.discordbot.sql.SQLModule;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -116,15 +117,21 @@ public class Controller {
                 } catch (LoginException e) {
                     e.printStackTrace();
                 }
-                ObservableList<String> list = FXCollections.observableArrayList();
-                Bot.getInstance().getBot().getGuilds().stream().forEach(g ->{
-                    list.add("==========["+g.getName()+"]==========");
-                    g.getVoiceChannels().stream().forEach(v->{
-                        list.add(v.getName());
-                        id.put(v.getName(),v.getIdLong());
-                    });
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        ObservableList<String> list = FXCollections.observableArrayList();
+                        Bot.getInstance().getBot().getGuilds().stream().forEach(g ->{
+                            list.add("==========["+g.getName()+"]==========");
+                            g.getVoiceChannels().stream().forEach(v->{
+                                list.add(v.getName());
+                                id.put(v.getName(),v.getIdLong());
+                            });
+                        });
+                        channel.setItems(list);
+                    }
                 });
-                channel.setItems(list);
+
             }
         }).start();
     }
@@ -135,8 +142,13 @@ public class Controller {
             @Override
             public void run() {
                 Bot.getInstance().stopBot();
-                channel.setValue(null);
-                channel.getItems().clear();
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        channel.setValue(null);
+                        channel.getItems().clear();
+                    }
+                });
             }
         }).start();
     }
@@ -147,22 +159,33 @@ public class Controller {
             @Override
             public void run() {
                 Bot.getInstance().stopBot();
-                channel.setValue(null);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        channel.setValue(null);
+                    }
+                });
                 SQLModule sql = SQLModule.getInstance();
                 try {
                     Bot.getInstance().startBot(sql.getToken(),sql.getSpielt(),"https://twitch.tv/letsplaybar", Game.GameType.valueOf(sql.getStreamt()),sql.getOnline(),sql.getState(),sql.getDetails(),sql.getAID(),sql.getLI(),sql.getSI(),sql.getLT(),sql.getST(),System.currentTimeMillis(),System.currentTimeMillis(),(ModuleLoader.getInstance().getActivateModules().contains("CommandModule"))?new CommandListener():null);
                 } catch (LoginException e) {
                     e.printStackTrace();
                 }
-                ObservableList<String> list = FXCollections.observableArrayList();
-                Bot.getInstance().getBot().getGuilds().stream().forEach(g ->{
-                    list.add("==========["+g.getName()+"]==========");
-                    g.getVoiceChannels().stream().forEach(v->{
-                        list.add(v.getName());
-                        id.put(v.getName(),v.getIdLong());
-                    });
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        ObservableList<String> list = FXCollections.observableArrayList();
+                        Bot.getInstance().getBot().getGuilds().stream().forEach(g ->{
+                            list.add("==========["+g.getName()+"]==========");
+                            g.getVoiceChannels().stream().forEach(v->{
+                                list.add(v.getName());
+                                id.put(v.getName(),v.getIdLong());
+                            });
+                        });
+                        channel.setItems(list);
+                    }
                 });
-                channel.setItems(list);
+
             }
         }).start();
     }
