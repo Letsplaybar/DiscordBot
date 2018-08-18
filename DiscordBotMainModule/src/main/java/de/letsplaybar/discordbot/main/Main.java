@@ -20,6 +20,9 @@ public class Main {
 
     private @Getter static Main instance;
 
+    /**
+     * Init des Programms
+     */
     public  Main(){
         File data = new File(".data");
         System.setProperty("file.encoding" , "UTF-8");
@@ -65,6 +68,9 @@ public class Main {
         new Main();
     }
 
+    /**
+     * Rigestriet alle Module damit sie im Init laden könenn und beim beenden unloaden können
+     */
     private static void registerModule() {
         String disable = (System.getProperty("Module-Inactive")!= null)? System.getProperty("Module-Inactive"):"";
         List<String> disMod = Arrays.asList(disable.split(","));
@@ -84,6 +90,10 @@ public class Main {
 
     }
 
+    /**
+     * Bekomme alle Module aus der Jar
+     * @return {@link List} mit {@link Module}
+     */
     public static List<Class<? extends Module>> getModules(){
         ArrayList<Class<? extends Module>> list = new ArrayList<>();
         try{
@@ -104,6 +114,9 @@ public class Main {
         return list;
     }
 
+    /**
+     * Stopt den Bot, in dem es das Blockin element im init. aktiviert so das unload aufgerufen wird
+     */
     public static void stop(){
         synchronized (instance){
             instance.notify();

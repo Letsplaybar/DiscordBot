@@ -19,6 +19,13 @@ public class Spielst extends Game {
     private String url;
     private GameType type;
 
+    /**
+     * holt dir das Game element
+     * @param name
+     * @param url
+     * @param typ
+     * @return
+     */
     public static  Spielst getSpielt(String name, String url, GameType typ){
         return new Spielst(name,url,typ);
     }
@@ -46,6 +53,19 @@ public class Spielst extends Game {
         return type;
     }
 
+    /**
+     * Setzt das Rich Presence element
+     * @param status
+     * @param state
+     * @param details
+     * @param application_id
+     * @param large_image
+     * @param small_image
+     * @param large_text
+     * @param small_text
+     * @param timestamp
+     * @param since
+     */
     public void setPresence(OnlineStatus status, String state, String details, String application_id,
                             String large_image, String small_image, String large_text, String small_text,
                             long timestamp, long since){

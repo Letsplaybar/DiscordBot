@@ -9,12 +9,9 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.entities.RichPresence;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import javax.security.auth.login.LoginException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +42,26 @@ public class Bot implements Module{
         stopBot();
     }
 
+
+    /**
+     * Startet den Discordbot
+     * @param token ist der Key damit der Bot sich einloggen kann
+     * @param spiel Nachricht die der Bot anzeigt in der Leiste
+     * @param url Link auf den er verweißt bei stramt
+     * @param type {@link net.dv8tion.jda.core.entities.Game.GameType} was er tut zuhören, sehen, spielen, streamen
+     * @param status {@link OnlineStatus} der Onlinemode vom bot
+     * @param state kleine beschreibung vom Rich
+     * @param details kleine beschreibung vom Rich
+     * @param application_id die id wird benötigt um die bilder zu laden
+     * @param large_image id vom großen bild der aplication
+     * @param small_image id vom klienen Bild der aplication
+     * @param large_text Text vom Großen Biöd
+     * @param small_text Text vom kleinen Bild
+     * @param timestamp seit wann
+     * @param since doppelt seit wann
+     * @param listeners Listeners die benutzt werden sollem
+     * @throws LoginException wenn der Token falsch ist
+     */
     public void startBot(String token, String spiel, String url, Game.GameType type, OnlineStatus status,
                          String state, String details, String application_id,
                          String large_image, String small_image, String large_text, String small_text, long timestamp,
@@ -78,6 +95,9 @@ public class Bot implements Module{
         }
     }
 
+    /**
+     * Stoppt den Bot
+     */
     public  void stopBot(){
         if(bot != null)
             bot.shutdownNow();
