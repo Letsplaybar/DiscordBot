@@ -38,6 +38,7 @@ public class Umfrage implements Command {
         if(args[0].equalsIgnoreCase("start")) {
             List<String> emoji = new ArrayList<>();
 
+            // Teilt den CMD in Pattern auf 1 Pater Frage weitere Pattern Antworten
             String[] msgarray = Arrays.asList(args).stream().skip(1).map(s -> s+ " ").collect(Collectors.joining()).split(Pattern.quote("|"));
             String ausgabe =  msgarray[0];
             int emote = 0;
@@ -46,6 +47,7 @@ public class Umfrage implements Command {
                 return;
             }
             for (int i = 1; i < msgarray.length; i++) {
+                //Teilt Antwortenpattern in Emotepatter und Auswahlmöglichkeitpatter
                 String[] teil = msgarray[i].split(Pattern.quote(";"));
 
                 if(emoji.contains(teil[0])){
@@ -61,7 +63,7 @@ public class Umfrage implements Command {
                     teil[0] = em.get(0);
                 }
 
-
+                // fügt das Emote und die auswahlpatter zur message hinzu
                 ausgabe += "\n"+(i)+". " + (teil[0].contains(":")? event.getMessage().getEmotes().get(emote++).getAsMention():teil[0].replace(" ", "")) + " : " + teil[1];
                 emoji.add(teil[0]);
             }

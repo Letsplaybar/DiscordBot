@@ -50,6 +50,10 @@ public class CommandModule implements Module {
         unregisterCommand("music");
     }
 
+    /**
+     * bekomme das CMDZeichen
+     * @return
+     */
     public String getCommand() {
         ResultSet rs =SQLModule.getInstance().getSql().getResult("SELECT * FROM Settings WHERE Key='Command'");
         try {
@@ -60,6 +64,10 @@ public class CommandModule implements Module {
         return "/";
     }
 
+    /**
+     * setze das CMDZeichen
+     * @param key
+     */
     public void setCommand(String key){
         try {
             if(SQLModule.getInstance().getSql().isInDatabase("Command","Settings","Key"))
@@ -70,11 +78,19 @@ public class CommandModule implements Module {
         }
     }
 
+    /**
+     * füge einen neuen Command hinzu
+     * @param cmd String unter welchem er gecalled werden soll
+     * @param command {@link Command} Implementierung des Commands
+     */
     public void registerCommand(String cmd, Command command){
         CommandHandler.commands.put(cmd,command);
     }
 
-
+    /**
+     * entferne einen Command
+     * @param cmd
+     */
     public void unregisterCommand(String cmd){
         CommandHandler.commands.remove(cmd);
     }

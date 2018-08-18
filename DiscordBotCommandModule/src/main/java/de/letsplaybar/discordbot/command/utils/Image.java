@@ -25,12 +25,22 @@ public class Image {
     private String name;
     private int amount;
 
+    /**
+     *
+     * @param name nach dem Bild was gesucht werden soll
+     * @param amount die anzahl der zuladenen bilder
+     */
     public Image(String name, int amount){
         this.name = name;
         this.amount = amount;
         url = new String[amount];
     }
 
+    /**
+     * läd bilder aus Bing runter und cached sie
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public void load() throws IOException, URISyntaxException {
         HttpClient httpclient = HttpClients.createDefault();
 
@@ -60,6 +70,11 @@ public class Image {
         }
     }
 
+
+    /**
+     * sucht ein rnd Bild aus den gechacheden raus
+     * @return
+     */
     public String getRndImage(){
         return url[new Random().nextInt(url.length)];
     }

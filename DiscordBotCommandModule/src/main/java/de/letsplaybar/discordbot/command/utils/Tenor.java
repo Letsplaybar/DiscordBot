@@ -18,11 +18,21 @@ public class Tenor {
     private final String giphy = "https://api.tenor.com/v1/search?q=%s&limit=%a&key=LIVDSRZULELA";
     private int amount;
 
+    /**
+     * sucht aus Tenor ein Gif raus
+     * @param name das zu suchende gif
+     * @param amount die anzahl der zu cachenden Gifs
+     */
     public Tenor(String name, int amount){
         this.name = name;
         this.amount = amount;
     }
 
+    /**
+     * cachet die gifs
+     * @throws IOException
+     * @throws JSONException
+     */
     public void load() throws IOException, JSONException {
         JSONObject json = new JSONGetter().readJsonFromUrl(giphy.replace("%s",name).replace("%a",String.valueOf(amount)));
         if(json.get("results")instanceof JSONArray) {
@@ -40,7 +50,11 @@ public class Tenor {
         }
     }
 
-
+    /**
+     * gibt ein rnd Gif aus dem Cache wieder
+     * @param i
+     * @return
+     */
     public String getRndGif(int i){
         String rnd = url[new Random().nextInt(url.length)];
         return rnd;

@@ -16,6 +16,11 @@ public class CommandHandler {
     public static final CommandParser parse = new CommandParser();
     public static HashMap<String,Command>commands = new HashMap<>();
 
+    /**
+     * handelt das aufrufen des Commands
+     * @param cmd {@link de.letsplaybar.discordbot.command.command.CommandParser.CommandContainer} enthält alle teile die der command braucht
+     * @throws ParseException
+     */
     public static void handleCommand(CommandParser.CommandContainer cmd) throws ParseException {
         try {
             if(commands.containsKey(cmd.invoke)&& SQLModule.getInstance().hasPermission(cmd.event.getAuthor().getId(),commands.get(cmd.invoke).getPerm())){

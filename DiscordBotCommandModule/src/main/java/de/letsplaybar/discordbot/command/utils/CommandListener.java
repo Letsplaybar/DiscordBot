@@ -13,6 +13,11 @@ import java.text.ParseException;
  */
 public class CommandListener extends ListenerAdapter {
 
+    /**
+     * wird aufgerufen wenn eine nachricht mit dem CMDZeichen beginnt um zu schauen ob es sich um einen Command handelt
+     * ist dies der Fall so wird dieser ausgeführt
+     * @param event
+     */
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         if(event.getMessage().getContentDisplay().startsWith(CommandModule.getInstance().getCommand())){

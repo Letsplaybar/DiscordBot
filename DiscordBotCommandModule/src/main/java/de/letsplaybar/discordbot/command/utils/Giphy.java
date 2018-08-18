@@ -19,11 +19,21 @@ public class Giphy {
     private final String giphy = "http://api.giphy.com/v1/gifs/search?q=%s&api_key=%k&limit=%a";
     private int amount;
 
+    /**
+     *
+     * @param name nach dem zu suchenden gifs
+     * @param amount die anzahl aus der zufällig ausgewählt werden soll
+     */
     public Giphy(String name, int amount){
         this.name = name;
         this.amount = amount;
     }
 
+    /**
+     * läd die objekte voll damit dann rnd. ausgelost werden kann
+     * @throws IOException
+     * @throws JSONException
+     */
     public void load() throws IOException, JSONException {
         String key = SQLModule.getInstance().getGiphy();
             JSONObject json = new JSONGetter().readJsonFromUrl(giphy.replace("%s",name).replace("%k",key).replace("%a",String.valueOf(amount)));
@@ -43,6 +53,11 @@ public class Giphy {
             }
     }
 
+    /**
+     * gibt ein zufälliges gif wieder von den geladenen
+     * @param i
+     * @return
+     */
     public String getRndGif(int i){
         String rnd = url[new Random().nextInt(url.length)];
         return rnd;

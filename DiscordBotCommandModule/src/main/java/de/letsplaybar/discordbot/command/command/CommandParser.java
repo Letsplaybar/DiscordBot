@@ -10,6 +10,12 @@ import java.util.ArrayList;
  *         Created on 09.03.2017.
  */
 public class CommandParser {
+    /**
+     * parst die empfangende Message zu einem {@link CommandContainer}
+     * @param rw string de rzu parsen ist
+     * @param e das event von der Message
+     * @return {@link CommandContainer}
+     */
     public CommandContainer parse(String rw, GuildMessageReceivedEvent e) {
 
         ArrayList<String> split = new ArrayList<>();
@@ -38,6 +44,15 @@ public class CommandParser {
         public final String[] args;
         public final GuildMessageReceivedEvent event;
 
+        /**
+         * erzeugt einen CommandContainer
+         * @param rw String der MSG
+         * @param beheaded String ohne CMDZeichen
+         * @param splitBeheaded argument Container mit command
+         * @param invoke der Command
+         * @param args Argument container
+         * @param e Event vom Command
+         */
         public CommandContainer(String rw, String beheaded, String[] splitBeheaded, String invoke, String[] args,
                                 GuildMessageReceivedEvent e) {
             this.raw = rw;
