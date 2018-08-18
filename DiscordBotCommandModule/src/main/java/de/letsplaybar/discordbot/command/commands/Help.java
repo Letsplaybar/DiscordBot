@@ -26,7 +26,7 @@ public class Help implements Command {
                 "Commands:\n"+
                 zeichen+"music help\n"+
                 zeichen+"weather <city>\n"+
-                zeichen+"umfrage frage|emote;Auswahlmöglichkeit1|emote;Auswahlmöglichkeit2|...\n"+
+                zeichen+"umfrage start frage|emote;Auswahlmöglichkeit1|emote;Auswahlmöglichkeit2|...\n"+
                 zeichen+"gifg <name> - sucht Gifs auf Giphy\n"+
                 zeichen+"gift <name> - sucht Gifs auf Tenor\n"+
                 zeichen+"image <name>\n"

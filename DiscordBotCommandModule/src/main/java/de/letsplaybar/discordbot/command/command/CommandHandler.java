@@ -27,10 +27,8 @@ public class CommandHandler {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    cmd.event.getChannel().sendTyping().complete();
                     commands.get(cmd.invoke).executed(safe,cmd.event);
                 }else{
-                    cmd.event.getChannel().sendTyping().complete();
                     commands.get(cmd.invoke).executed(safe,cmd.event);
                 }
             }
