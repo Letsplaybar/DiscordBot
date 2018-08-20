@@ -29,7 +29,10 @@ public class Help implements Command {
                 zeichen+"umfrage start frage | emote ; Auswahlmöglichkeit1 | emote ; Auswahlmöglichkeit2 | ...\n"+
                 zeichen+"gifg <name> - sucht Gifs auf Giphy\n"+
                 zeichen+"gift <name> - sucht Gifs auf Tenor\n"+
-                zeichen+"image <name>\n"
+                zeichen+"image <name>\n"+
+                zeichen+"pun\n"+
+                zeichen+"brainfuck interpret <brainfuck> - BrainFuck to Text\n"+
+                zeichen+"brainfuck tobrainfuck <txt> - Text to BrainFuck\n"
         ).build()).queue();
 
     }

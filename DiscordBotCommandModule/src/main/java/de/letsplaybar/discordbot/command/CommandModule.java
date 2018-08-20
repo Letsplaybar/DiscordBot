@@ -1,8 +1,11 @@
 package de.letsplaybar.discordbot.command;
 
+import com.sethsutopia.utopiai.PunGenerator;
+import de.letsplaybar.discordbot.command.commands.Brainfuck;
 import de.letsplaybar.discordbot.command.command.Command;
 import de.letsplaybar.discordbot.command.command.CommandHandler;
 import de.letsplaybar.discordbot.command.commands.*;
+import de.letsplaybar.discordbot.command.utils.BrainFuck;
 import de.letsplaybar.discordbot.main.module.Module;
 import de.letsplaybar.discordbot.sql.SQLModule;
 import lombok.Getter;
@@ -15,6 +18,8 @@ import java.util.List;
 public class CommandModule implements Module {
 
     private @Getter static CommandModule instance;
+    private @Getter PunGenerator generator;
+    private @Getter BrainFuck brainFuck;
 
     @Override
     public List<String> getRequementsModule() {
@@ -26,6 +31,8 @@ public class CommandModule implements Module {
     @Override
     public void register() {
         instance = this;
+        generator = new PunGenerator();
+        brainFuck = new BrainFuck();
     }
 
     @Override
@@ -37,6 +44,8 @@ public class CommandModule implements Module {
         registerCommand("gift",new TENOR());
         registerCommand("image",new IMAGE());
         registerCommand("music", new Music());
+        registerCommand("pun", new Pun());
+        registerCommand("brainfuck", new Brainfuck());
     }
 
     @Override
@@ -48,6 +57,8 @@ public class CommandModule implements Module {
         unregisterCommand("gift");
         unregisterCommand("image");
         unregisterCommand("music");
+        unregisterCommand("pun");
+        unregisterCommand("brainfuck");
     }
 
     /**

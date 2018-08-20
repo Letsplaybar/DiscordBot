@@ -45,5 +45,7 @@ public interface Command {
      * gibt die benötigte perm aus
      * @return
      */
-    String getPerm();
+    default String getPerm(){
+        return "";
+    }
 }

@@ -60,7 +60,8 @@ public class Umfrage implements Command {
                     event.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).setTitle("Error").setDescription("You can only use Emote to Indentify the answer\n make "+ CommandModule.getInstance().getCommand()+"help for help").build()).complete();
                     return;
                 }else {
-                    teil[0] = em.get(0);
+                    if(em.size() != 0)
+                        teil[0] = em.get(0);
                 }
 
                 // fügt das Emote und die auswahlpatter zur message hinzu
