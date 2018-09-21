@@ -46,6 +46,9 @@ public class CommandModule implements Module {
         registerCommand("music", new Music());
         registerCommand("pun", new Pun());
         registerCommand("brainfuck", new Brainfuck());
+        registerCommand("answer", new Answer());
+        registerCommand("entropie", new Entropie());
+        registerCommand("user", new Users());
     }
 
     @Override
@@ -59,6 +62,9 @@ public class CommandModule implements Module {
         unregisterCommand("music");
         unregisterCommand("pun");
         unregisterCommand("brainfuck");
+        unregisterCommand("answer");
+        unregisterCommand("entropie");
+        unregisterCommand("users");
     }
 
     /**

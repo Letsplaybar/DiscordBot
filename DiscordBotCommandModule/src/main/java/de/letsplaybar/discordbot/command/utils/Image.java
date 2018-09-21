@@ -57,7 +57,6 @@ public class Image {
 
         HttpResponse response = httpclient.execute(request);
         HttpEntity entity = response.getEntity();
-
         if (entity != null) {
             JSONObject bing = new JSONGetter().readJsonFromUrl(entity.getContent());
             if(bing.get("value")instanceof JSONArray){

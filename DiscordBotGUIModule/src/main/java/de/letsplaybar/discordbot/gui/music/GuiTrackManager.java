@@ -53,6 +53,7 @@ public class GuiTrackManager  extends TrackManager {
             public void run() {
                 gui.getGui().getController().getDuration().setProgress((double)track.getPosition()/(double)track.getDuration());
                 gui.getGui().getController().getCurrent().setText(getTimeStamp(track.getPosition()));
+                gui.getGui().getController().getTitle().setText(track.getInfo().author +" - "+ track.getInfo().title);
                 if(track.getDuration() == track.getPosition()){
                     timer.cancel();
                 }

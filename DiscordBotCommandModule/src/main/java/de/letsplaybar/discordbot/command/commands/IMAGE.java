@@ -37,7 +37,7 @@ public class IMAGE implements Command {
             event.getChannel().sendMessage(
                     new EmbedBuilder().setImage(s).setColor(Color.cyan).build()).queue();
         }else{
-            event.getChannel().sendMessage(new EmbedBuilder().setColor(Color.red).setDescription("Leider Konnten keine IMAGE gefunden werden").build()).queue();
+            event.getChannel().sendMessage(new EmbedBuilder().setColor(Color.red).setDescription("Leider konnte keine IMAGE gefunden werden").build()).queue();
         }
     }
 

@@ -1,8 +1,10 @@
 package de.letsplaybar.discordbot.gui.aplication.playlist.create;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -18,6 +20,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class Controller {
@@ -74,6 +77,15 @@ public class Controller {
     @FXML
     void cancel(ActionEvent event) {
         ((Stage)playlist_items.getScene().getWindow()).close();
+    }
+
+    @FXML
+    void file(ActionEvent event){
+        FileChooser chooser = new FileChooser();
+        List<File> files = chooser.showOpenMultipleDialog((Stage)playlist_items.getScene().getWindow());
+        files.stream().forEach(file->{
+            playlist_items.getItems().add(new Song(file.getName().replace("'","''"),file.getAbsolutePath().replace("'","''")));
+        });
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete

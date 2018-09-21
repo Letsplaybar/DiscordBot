@@ -32,7 +32,11 @@ public class Help implements Command {
                 zeichen+"image <name>\n"+
                 zeichen+"pun\n"+
                 zeichen+"brainfuck interpret <brainfuck> - BrainFuck to Text\n"+
-                zeichen+"brainfuck tobrainfuck <txt> - Text to BrainFuck\n"
+                zeichen+"brainfuck tobrainfuck <txt> - Text to BrainFuck\n"+
+                zeichen+"answer <Ja Nein Frage>\n"+
+                zeichen+"entropie <List of Integer>\n"+
+                zeichen+"user - become infos for you\n"+
+                zeichen+"user <user> - become info from user"
         ).build()).queue();
 
     }
