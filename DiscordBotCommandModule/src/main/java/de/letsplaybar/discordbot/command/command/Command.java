@@ -1,6 +1,8 @@
 package de.letsplaybar.discordbot.command.command;
 
+import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -14,26 +16,26 @@ public interface Command {
     /**
      * zum checken ob alles Funktioniert false == es kalppt alles
      * @param args Argumente des Commands
-     * @param event Event wo der cmd aufgerufen wurde
+     * @param eventGuild Event wo der cmd aufgerufen wurde
      * @return
      */
-    boolean called(String[] args, GuildMessageReceivedEvent event);
+    boolean called(String[] args, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat);
 
     /**
      * hier wird der Command ausgeführt wenn called = false
      * @param args Argumente des Commands
-     * @param event Event wo der cmd aufgerufen wurde
+     * @param eventGuild Event wo der cmd aufgerufen wurde
      * @throws ParseException
      * @throws IOException
      */
-    void action(String[] args, GuildMessageReceivedEvent event) throws ParseException, IOException;
+    void action(String[] args, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) throws ParseException, IOException;
 
     /**
      * zum ausgeben von Nachrichten
      * @param success ob alles geklappt hat
-     * @param event Event wo der cmd aufgerufen wurde
+     * @param eventGuild Event wo der cmd aufgerufen wurde
      */
-    void executed(boolean success, GuildMessageReceivedEvent event);
+    void executed(boolean success, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat);
 
     /**
      * gibt die hilfe nachricht wieder

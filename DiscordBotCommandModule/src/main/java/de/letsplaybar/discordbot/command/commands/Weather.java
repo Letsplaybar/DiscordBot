@@ -3,6 +3,7 @@ package de.letsplaybar.discordbot.command.commands;
 import de.letsplaybar.discordbot.command.command.Command;
 import de.letsplaybar.discordbot.sql.SQLModule;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -30,14 +31,14 @@ public class Weather implements Command {
     }
 
     @Override
-    public boolean called(String[] args, GuildMessageReceivedEvent event) {
+    public boolean called(String[] args, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) {
         if(args.length >0)
             return false;
         return true;
     }
 
     @Override
-    public void action(String[] args, GuildMessageReceivedEvent event) throws ParseException, IOException {
+    public void action(String[] args, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) throws ParseException, IOException {
         url = "http://api.openweathermap.org/data/2.5/forecast?q=%stadt&mode=xml&appid=%key&lang=de";
         String stadt = "";
         for(String s : args){
@@ -49,7 +50,10 @@ public class Weather implements Command {
         try {
             Document document = factory.newDocumentBuilder().parse(url);
             NodeList times = document.getElementsByTagName("time");
-            event.getChannel().sendMessage("Die Wettervorhersage für "+stadt+" ist:").queue();
+            if(eventGuild != null)
+                eventGuild.getChannel().sendMessage("Die Wettervorhersage für "+stadt+" ist:").queue();
+            if(eventPrivat !=  null)
+                eventPrivat.getChannel().sendMessage("Die Wettervorhersage für "+stadt+" ist:").queue();
             for (int i = 0;i<8;i+=2) {
                 Node time = times.item(i);
                 NamedNodeMap timeAttributes =time.getAttributes();
@@ -76,7 +80,10 @@ public class Weather implements Command {
                 double max= Double.valueOf(maxtemp);
                 min -=273.15;
                 max -=273.15;
-                event.getChannel().sendMessage(end.format(date)+": Das Wetter wird "+clouds+" bei einer Max Temperatur von: "+((Math.round(max*10))/10)+"°C und einer Min Temperatur von: "+((Math.round(min*10))/10)+"°C.").queue();
+                if(eventGuild != null)
+                    eventGuild.getChannel().sendMessage(end.format(date)+": Das Wetter wird "+clouds+" bei einer Max Temperatur von: "+((Math.round(max*10))/10)+"°C und einer Min Temperatur von: "+((Math.round(min*10))/10)+"°C.").queue();
+                if(eventPrivat != null)
+                    eventPrivat.getChannel().sendMessage(end.format(date)+": Das Wetter wird "+clouds+" bei einer Max Temperatur von: "+((Math.round(max*10))/10)+"°C und einer Min Temperatur von: "+((Math.round(min*10))/10)+"°C.").queue();
             }
         } catch (SAXException e) {
             e.printStackTrace();
@@ -86,9 +93,12 @@ public class Weather implements Command {
     }
 
     @Override
-    public void executed(boolean success, GuildMessageReceivedEvent event) {
+    public void executed(boolean success, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) {
         if (success){
-            event.getChannel().sendMessage("Bitte gebe eine Stadt an").queue();
+            if(eventGuild != null)
+                eventGuild.getChannel().sendMessage("Bitte gebe eine Stadt an").queue();
+            if(eventPrivat != null)
+                eventPrivat.getChannel().sendMessage("Bitte gebe eine Stadt an").queue();
         }
     }
 

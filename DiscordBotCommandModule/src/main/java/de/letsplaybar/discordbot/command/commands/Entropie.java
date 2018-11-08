@@ -4,6 +4,7 @@ import de.letsplaybar.discordbot.command.CommandModule;
 import de.letsplaybar.discordbot.command.command.Command;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
 
 import java.awt.*;
 import java.io.IOException;
@@ -16,12 +17,12 @@ import java.util.stream.Collectors;
 
 public class Entropie implements Command {
     @Override
-    public boolean called(String[] args, GuildMessageReceivedEvent event) {
+    public boolean called(String[] args, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) {
         return false;
     }
 
     @Override
-    public void action(String[] args, GuildMessageReceivedEvent event) throws ParseException, IOException {
+    public void action(String[] args, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) throws ParseException, IOException {
         if(args.length > 1){
 
             HashMap<Integer,Integer> values = new HashMap();
@@ -33,7 +34,11 @@ public class Entropie implements Command {
                     }
                     values.put(i,values.get(i)+1);
                 }catch (NumberFormatException ex){
-                    event.getChannel().sendMessage(new EmbedBuilder().setColor(Color.red).setTitle("Help")
+                    if(eventGuild != null)
+                        eventGuild.getChannel().sendMessage(new EmbedBuilder().setColor(Color.red).setTitle("Help")
+                            .setDescription(help()).build()).queue();
+                    if(eventPrivat != null)
+                        eventPrivat.getChannel().sendMessage(new EmbedBuilder().setColor(Color.red).setTitle("Help")
                             .setDescription(help()).build()).queue();
                 }
             });
@@ -45,14 +50,19 @@ public class Entropie implements Command {
             probs.stream().forEach(p ->{
                 size[0] = size[0] + -p * (Math.log(p)/Math.log(2));
             } );
-            event.getChannel().sendMessage(new EmbedBuilder().setColor(Color.YELLOW).setTitle("Entropie")
+            if(eventGuild != null)
+                eventGuild.getChannel().sendMessage(new EmbedBuilder().setColor(Color.YELLOW).setTitle("Entropie")
+                    .setDescription("The Entropie from ["+ Arrays.asList(args).stream().map(s -> s+ ", ")
+                            .collect(Collectors.joining())+ "] is "+ size[0]+".").build()).queue();
+            if(eventPrivat != null)
+                eventPrivat.getChannel().sendMessage(new EmbedBuilder().setColor(Color.YELLOW).setTitle("Entropie")
                     .setDescription("The Entropie from ["+ Arrays.asList(args).stream().map(s -> s+ ", ")
                             .collect(Collectors.joining())+ "] is "+ size[0]+".").build()).queue();
         }
     }
 
     @Override
-    public void executed(boolean success, GuildMessageReceivedEvent event) {
+    public void executed(boolean success, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) {
 
     }
 

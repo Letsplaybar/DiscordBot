@@ -7,6 +7,7 @@ import de.letsplaybar.discordbot.command.command.Command;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
 
 import java.awt.*;
 import java.io.IOException;
@@ -24,15 +25,17 @@ public class Umfrage implements Command {
 
 
     @Override
-    public boolean called(String[] args, GuildMessageReceivedEvent event) {
+    public boolean called(String[] args, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) {
         return false;
     }
 
     @Override
-    public void action(String[] args, GuildMessageReceivedEvent event) throws ParseException, IOException {
+    public void action(String[] args, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) throws ParseException, IOException {
         if(args.length <= 1){
-
-            event.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).setTitle("Error").setDescription("make "+ CommandModule.getInstance().getCommand()+"help for help").build()).complete();
+            if(eventGuild != null)
+                eventGuild.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).setTitle("Error").setDescription("make "+ CommandModule.getInstance().getCommand()+"help for help").build()).complete();
+            if(eventPrivat != null)
+                eventPrivat.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).setTitle("Error").setDescription("make "+ CommandModule.getInstance().getCommand()+"help for help").build()).complete();
             return;
         }
         if(args[0].equalsIgnoreCase("start")) {
@@ -43,7 +46,10 @@ public class Umfrage implements Command {
             String ausgabe =  msgarray[0];
             int emote = 0;
             if(msgarray.length == 1){
-                event.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).setTitle("Error").setDescription("Missing answer parameter\n make "+ CommandModule.getInstance().getCommand()+"help for help").build()).complete();
+                if(eventGuild != null)
+                    eventGuild.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).setTitle("Error").setDescription("Missing answer parameter\n make "+ CommandModule.getInstance().getCommand()+"help for help").build()).complete();
+                if(eventPrivat != null)
+                    eventPrivat.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).setTitle("Error").setDescription("Missing answer parameter\n make "+ CommandModule.getInstance().getCommand()+"help for help").build()).complete();
                 return;
             }
             for (int i = 1; i < msgarray.length; i++) {
@@ -51,13 +57,19 @@ public class Umfrage implements Command {
                 String[] teil = msgarray[i].split(Pattern.quote(";"));
 
                 if(emoji.contains(teil[0])){
-                    event.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).setTitle("Error").setDescription("You can only use every Emote one Time\n make "+ CommandModule.getInstance().getCommand()+"help for help").build()).complete();
+                    if(eventGuild != null)
+                        eventGuild.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).setTitle("Error").setDescription("You can only use every Emote one Time\n make "+ CommandModule.getInstance().getCommand()+"help for help").build()).complete();
+                    if(eventPrivat!= null)
+                        eventPrivat.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).setTitle("Error").setDescription("You can only use every Emote one Time\n make "+ CommandModule.getInstance().getCommand()+"help for help").build()).complete();
                     return;
                 }
                 List<String> em = EmojiParser.extractEmojis(teil[0]);
                 em.stream().forEach(e-> System.out.println(e));
                 if(em.isEmpty()&& !(teil[0].replace(" ", "").startsWith(":")&& teil[0].replace(" ", "").endsWith(":"))){
-                    event.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).setTitle("Error").setDescription("You can only use Emote to Indentify the answer\n make "+ CommandModule.getInstance().getCommand()+"help for help").build()).complete();
+                    if(eventGuild != null)
+                        eventGuild.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).setTitle("Error").setDescription("You can only use Emote to Indentify the answer\n make "+ CommandModule.getInstance().getCommand()+"help for help").build()).complete();
+                    if(eventPrivat != null)
+                        eventPrivat.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).setTitle("Error").setDescription("You can only use Emote to Indentify the answer\n make "+ CommandModule.getInstance().getCommand()+"help for help").build()).complete();
                     return;
                 }else {
                     if(em.size() != 0)
@@ -65,26 +77,43 @@ public class Umfrage implements Command {
                 }
 
                 // fügt das Emote und die auswahlpatter zur message hinzu
-                ausgabe += "\n"+(i)+". " + (teil[0].contains(":")? event.getMessage().getEmotes().get(emote++).getAsMention():teil[0].replace(" ", "")) + " : " + teil[1];
+                if(eventGuild != null)
+                    ausgabe += "\n"+(i)+". " + (teil[0].contains(":")? eventGuild.getMessage().getEmotes().get(emote++).getAsMention():teil[0].replace(" ", "")) + " : " + teil[1];
+                if(eventPrivat != null)
+                    ausgabe += "\n"+(i)+". " + (teil[0].contains(":")? eventPrivat.getMessage().getEmotes().get(emote++).getAsMention():teil[0].replace(" ", "")) + " : " + teil[1];
                 emoji.add(teil[0]);
             }
-            Message msg =
-                    event.getChannel().sendMessage(ausgabe).complete();
-            event.getMessage().getEmotes().stream().forEach(em ->{
-                msg.addReaction(em).queue();
-            });
-            emoji.stream().forEach(em -> {
+            if(eventGuild != null) {
+                Message msg =
+                        eventGuild.getChannel().sendMessage(ausgabe).complete();
+                eventGuild.getMessage().getEmotes().stream().forEach(em -> {
+                    msg.addReaction(em).queue();
+                });
+                emoji.stream().forEach(em -> {
                     msg.addReaction(em.replace(" ", ""));
-            });
-
+                });
+            }
+            if(eventPrivat != null){
+                Message msg =
+                        eventPrivat.getChannel().sendMessage(ausgabe).complete();
+                eventPrivat.getMessage().getEmotes().stream().forEach(em -> {
+                    msg.addReaction(em).queue();
+                });
+                emoji.stream().forEach(em -> {
+                    msg.addReaction(em.replace(" ", ""));
+                });
+            }
         }else{
-            event.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).setTitle("Error").setDescription("make "+ CommandModule.getInstance().getCommand()+"help for help").build()).complete();
+            if(eventGuild != null)
+                eventGuild.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).setTitle("Error").setDescription("make "+ CommandModule.getInstance().getCommand()+"help for help").build()).complete();
+            if(eventPrivat != null)
+                eventPrivat.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).setTitle("Error").setDescription("make "+ CommandModule.getInstance().getCommand()+"help for help").build()).complete();
         }
     }
 
 
     @Override
-    public void executed(boolean success, GuildMessageReceivedEvent event) {
+    public void executed(boolean success, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) {
 
     }
 

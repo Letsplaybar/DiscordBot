@@ -7,6 +7,7 @@ import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
 
 import java.awt.*;
 import java.io.IOException;
@@ -16,24 +17,26 @@ import java.util.stream.Collectors;
 
 public class Users implements Command {
     @Override
-    public boolean called(String[] args, GuildMessageReceivedEvent event) {
+    public boolean called(String[] args, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) {
         return false;
     }
 
     @Override
-    public void action(String[] args, GuildMessageReceivedEvent event) throws ParseException, IOException {
+    public void action(String[] args, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) throws ParseException, IOException {
+        if(eventPrivat != null)
+            return;
         if(args.length == 0){
-            sendUserInfo(event.getMember(),event.getChannel());
+            sendUserInfo(eventGuild.getMember(),eventGuild.getChannel());
         }else if (args.length == 1){
-            if(event.getMessage().getMentionedMembers().size() > 0){
-                sendUserInfo(event.getMessage().getMentionedMembers().get(0),event.getChannel());
+            if(eventGuild.getMessage().getMentionedMembers().size() > 0){
+                sendUserInfo(eventGuild.getMessage().getMentionedMembers().get(0),eventGuild.getChannel());
             }else {
-                event.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).setTitle("Help")
+                eventGuild.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).setTitle("Help")
                         .setDescription("for help make"+ CommandModule.getInstance().getCommand()+"help").build())
                         .queue();
             }
         }else {
-            event.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).setTitle("Help")
+            eventGuild.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).setTitle("Help")
                     .setDescription("for help make"+ CommandModule.getInstance().getCommand()+"help").build()).queue();
         }
     }
@@ -65,7 +68,7 @@ public class Users implements Command {
     }
 
     @Override
-    public void executed(boolean success, GuildMessageReceivedEvent event) {
+    public void executed(boolean success, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) {
 
     }
 

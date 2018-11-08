@@ -1,7 +1,9 @@
 package de.letsplaybar.discordbot.command.commands;
 
 import de.letsplaybar.discordbot.command.command.Command;
+import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -42,23 +44,30 @@ public class Answer implements Command {
 
 
     @Override
-    public boolean called(String[] args, GuildMessageReceivedEvent event) {
+    public boolean called(String[] args, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) {
         return false;
     }
 
     @Override
-    public void action(String[] args, GuildMessageReceivedEvent event) throws ParseException, IOException {
+    public void action(String[] args, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) throws ParseException, IOException {
         Random random = new Random();
         int i = random.nextInt();
-        event.getChannel().sendMessage("Frage: "+ Arrays.asList(args).stream().map(s-> s+" ")
+        if(eventGuild != null)
+            eventGuild.getChannel().sendMessage("Frage: "+ Arrays.asList(args).stream().map(s-> s+" ")
                 .collect(Collectors.joining())+"\n"+
                 "Antwort: "+(i%3 == 0? positiv.get(random.nextInt(positiv.size())) : i%3 == 1?
                 neutral.get(random.nextInt(neutral.size())) :
                 negativ.get(random.nextInt(negativ.size())))).queue();
+        if(eventPrivat != null)
+            eventPrivat.getChannel().sendMessage("Frage: "+ Arrays.asList(args).stream().map(s-> s+" ")
+                    .collect(Collectors.joining())+"\n"+
+                    "Antwort: "+(i%3 == 0? positiv.get(random.nextInt(positiv.size())) : i%3 == 1?
+                    neutral.get(random.nextInt(neutral.size())) :
+                    negativ.get(random.nextInt(negativ.size())))).queue();
     }
 
     @Override
-    public void executed(boolean success, GuildMessageReceivedEvent event) {
+    public void executed(boolean success, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) {
 
     }
 

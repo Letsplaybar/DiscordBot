@@ -1,6 +1,7 @@
 package de.letsplaybar.discordbot.command.command;
 
 import de.letsplaybar.discordbot.command.CommandModule;
+import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class CommandParser {
      * @param e das event von der Message
      * @return {@link CommandContainer}
      */
-    public CommandContainer parse(String rw, GuildMessageReceivedEvent e) {
+    public CommandContainer parse(String rw, Event e) {
 
         ArrayList<String> split = new ArrayList<>();
 
@@ -42,7 +43,7 @@ public class CommandParser {
         public final String[] splitBeheaded;
         public final String invoke;
         public final String[] args;
-        public final GuildMessageReceivedEvent event;
+        public final Event event;
 
         /**
          * erzeugt einen CommandContainer
@@ -54,7 +55,7 @@ public class CommandParser {
          * @param e Event vom Command
          */
         public CommandContainer(String rw, String beheaded, String[] splitBeheaded, String invoke, String[] args,
-                                GuildMessageReceivedEvent e) {
+                                Event e) {
             this.raw = rw;
             this.beheaded = beheaded;
             this.splitBeheaded = splitBeheaded;

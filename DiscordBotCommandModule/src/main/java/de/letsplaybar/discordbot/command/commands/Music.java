@@ -6,6 +6,7 @@ import de.letsplaybar.discordbot.main.module.ModuleLoader;
 import de.letsplaybar.discordbot.music.MusicModule;
 import lombok.Setter;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,19 +22,24 @@ import java.util.Scanner;
 public class Music implements Command {
 
     @Override
-    public boolean called(String[] args, GuildMessageReceivedEvent event) {
+    public boolean called(String[] args, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) {
         return false;
     }
 
-    private void sendHelpMessage(GuildMessageReceivedEvent event){
-        event.getChannel().sendMessage(help()).queue();
+    private void sendHelpMessage(GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat){
+        if(eventGuild != null)
+            eventGuild.getChannel().sendMessage(help()).queue();
+        if(eventPrivat != null)
+            eventPrivat.getChannel().sendMessage(help()).queue();
     }
 
     @Override
-    public void action(String[] args, GuildMessageReceivedEvent event) throws ParseException, IOException {
+    public void action(String[] args, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) throws ParseException, IOException {
+        if(eventPrivat != null)
+            return;
         switch (args.length) {
             case 0: // Show help message
-                sendHelpMessage(event);
+                sendHelpMessage(eventGuild,eventPrivat);
                 break;
 
             case 1:
@@ -41,30 +47,30 @@ public class Music implements Command {
                 switch (args[0].toLowerCase()) {
 
                     case "help":
-                        MusicModule.getInstance().getPlayer().sendHelpMessage(event.getChannel(),help());
+                        MusicModule.getInstance().getPlayer().sendHelpMessage(eventGuild.getChannel(),help());
                         break;
 
                     case "now":
                     case "current":
                     case "nowplaying":
                     case "info": // Display song info
-                        event.getChannel().sendMessage(MusicModule.getInstance().getPlayer().buildQueuemessage(MusicModule.getInstance().getPlayer().getInfo(event.getGuild()))).queue();
+                        eventGuild.getChannel().sendMessage(MusicModule.getInstance().getPlayer().buildQueuemessage(MusicModule.getInstance().getPlayer().getInfo(eventGuild.getGuild()))).queue();
                         break;
                     case "skip":
-                        MusicModule.getInstance().getPlayer().skip(event.getGuild());
+                        MusicModule.getInstance().getPlayer().skip(eventGuild.getGuild());
                         break;
 
                     case "stop":
-                        MusicModule.getInstance().getPlayer().stop(event.getGuild());
+                        MusicModule.getInstance().getPlayer().stop(eventGuild.getGuild());
                         break;
 
                     case "shuffle":
-                        MusicModule.getInstance().getPlayer().shuffle(event.getGuild());
+                        MusicModule.getInstance().getPlayer().shuffle(eventGuild.getGuild());
                         break;
 
                     case "pause":
                     case "resume":
-                        MusicModule.getInstance().getPlayer().toglePause(event.getGuild());
+                        MusicModule.getInstance().getPlayer().toglePause(eventGuild.getGuild());
                         break;
                 }
 
@@ -77,13 +83,13 @@ public class Music implements Command {
 
                     case "play": // Music a track
                         if (args.length <= 1) {
-                            event.getChannel().sendMessage(":warning:  Please include a valid source.").queue();
+                            eventGuild.getChannel().sendMessage(":warning:  Please include a valid source.").queue();
                         } else {
                             if(ModuleLoader.getInstance().getRegisterModulesName().contains("GUIModule")){
-                                event.getChannel().sendMessage(":warning:  GUI Aktiv, Please use GUI.").queue();
+                                eventGuild.getChannel().sendMessage(":warning:  GUI Aktiv, Please use GUI.").queue();
                                 return;
                             }
-                            MusicModule.getInstance().getPlayer().play(event.getMember(),input);
+                            MusicModule.getInstance().getPlayer().play(eventGuild.getMember(),input);
                         }
                         break;
                 }
@@ -93,7 +99,7 @@ public class Music implements Command {
     }
 
     @Override
-    public void executed(boolean success, GuildMessageReceivedEvent event) {
+    public void executed(boolean success, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) {
 
     }
 

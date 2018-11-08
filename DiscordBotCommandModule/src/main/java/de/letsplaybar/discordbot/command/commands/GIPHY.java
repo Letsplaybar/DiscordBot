@@ -4,6 +4,7 @@ import de.letsplaybar.discordbot.command.command.Command;
 import de.letsplaybar.discordbot.command.utils.Giphy;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
 
 import java.awt.*;
 import java.io.IOException;
@@ -17,32 +18,42 @@ import java.util.stream.Collectors;
  */
 public class GIPHY implements Command {
     @Override
-    public boolean called(String[] args, GuildMessageReceivedEvent event) {
+    public boolean called(String[] args, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) {
         return false;
     }
 
     @Override
-    public void action(String[] args, GuildMessageReceivedEvent event) throws ParseException, IOException {
+    public void action(String[] args, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) throws ParseException, IOException {
         String name = Arrays.stream(args).map(s-> s+"%20").collect(Collectors.joining());
         name = name.substring(0,name.length()-3);
         Giphy giphy = new Giphy(name,50);
         try {
             giphy.load();
         }catch (Exception ex){
-            event.getChannel().sendMessage(new EmbedBuilder().setColor(Color.red).setDescription("Leider Konnten keine Gifs gefunden werden").build()).queue();
+            if(eventGuild != null)
+                eventGuild.getChannel().sendMessage(new EmbedBuilder().setColor(Color.red).setDescription("Leider Konnten keine Gifs gefunden werden").build()).queue();
+            if(eventPrivat != null)
+                eventPrivat.getChannel().sendMessage(new EmbedBuilder().setColor(Color.red).setDescription("Leider Konnten keine Gifs gefunden werden").build()).queue();
             return;
         }
         String g = giphy.getRndGif(0);
         if(g != null) {
-            event.getChannel().sendMessage(
+            if(eventGuild != null)
+                eventGuild.getChannel().sendMessage(
                     new EmbedBuilder().setImage(g).setColor(Color.cyan).build()).queue();
+            if(eventPrivat != null)
+                eventPrivat.getChannel().sendMessage(
+                        new EmbedBuilder().setImage(g).setColor(Color.cyan).build()).queue();
         }else{
-            event.getChannel().sendMessage(new EmbedBuilder().setColor(Color.red).setDescription("Leider Konnten keine Gifs gefunden werden").build()).queue();
+            if(eventGuild != null)
+                eventGuild.getChannel().sendMessage(new EmbedBuilder().setColor(Color.red).setDescription("Leider Konnten keine Gifs gefunden werden").build()).queue();
+            if(eventPrivat != null)
+                eventPrivat.getChannel().sendMessage(new EmbedBuilder().setColor(Color.red).setDescription("Leider Konnten keine Gifs gefunden werden").build()).queue();
         }
     }
 
     @Override
-    public void executed(boolean success, GuildMessageReceivedEvent event) {
+    public void executed(boolean success, GuildMessageReceivedEvent eventGuild, PrivateMessageReceivedEvent eventPrivat) {
 
     }
 
