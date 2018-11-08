@@ -79,6 +79,13 @@
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>de.letsplaybar</groupId>
+            <artifactId>DiscordBot-RecordModule</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     <build>
         <resources>
@@ -122,6 +129,7 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <finalName>DiscordBot</finalName>
                     <archive>
                         <manifest>
                             <mainClass>de.letsplaybar.discordbot.main.Main</mainClass>

@@ -16,6 +16,12 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+    <distributionManagement>
+        <repository>
+            <id>discord</id>
+            <url>https://repo.letsplaybar.de/repository/discord/</url>
+        </repository>
+    </distributionManagement>
     <modules>
         <module>DiscordBotMainModule</module>
         <module>DiscordBotSQLModule</module>
@@ -25,6 +31,7 @@
         <module>DiscordBot-LogModue</module>
         <module>DiscordBot-MusicModule</module>
         <module>DiscordBot-CommandlineModule</module>
+        <module>DiscordBot-RecordModule</module>
     </modules>
     <packaging>pom</packaging>
     <profiles>
@@ -86,6 +93,47 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.1</version>
+                <executions>
+                    <execution>
+                        <id>default-deploy</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.1</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.5.1</version>
+                <executions>
+                    <execution>
+                        <id>default-deploy</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <serverId>discord</serverId>
+                    <nexusUrl>https://repo.letsplaybar.de/repository/discord</nexusUrl>
+                    <skipStaging>true</skipStaging>
+                </configuration>
             </plugin>
         </plugins>
     </build>
