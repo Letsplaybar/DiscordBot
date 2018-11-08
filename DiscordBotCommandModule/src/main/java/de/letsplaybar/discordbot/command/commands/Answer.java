@@ -14,11 +14,13 @@ import java.util.stream.Collectors;
 public class Answer implements Command {
 
     private List<String> positiv;
+    private List<String> neutral;
     private List<String> negativ;
 
     public Answer(){
         positiv = new ArrayList<>();
         negativ = new ArrayList<>();
+        neutral = new ArrayList<>();
         positiv.add("Bin dafür");
         positiv.add("Ja");
         positiv.add("Aber sowas von");
@@ -26,6 +28,9 @@ public class Answer implements Command {
         positiv.add("Aufjedenfall");
         positiv.add("Jo");
         positiv.add("Stehe voll hinter dir");
+        neutral.add("vieleicht");
+        neutral.add("ist mir latte");
+        neutral.add("interessiert mich nicht");
         negativ.add("Bin dagegen");
         negativ.add("Nein");
         negativ.add("Sag mal spinnst du?");
@@ -44,9 +49,11 @@ public class Answer implements Command {
     @Override
     public void action(String[] args, GuildMessageReceivedEvent event) throws ParseException, IOException {
         Random random = new Random();
+        int i = random.nextInt();
         event.getChannel().sendMessage("Frage: "+ Arrays.asList(args).stream().map(s-> s+" ")
                 .collect(Collectors.joining())+"\n"+
-                "Antwort: "+(random.nextInt()%2 == 0? positiv.get(random.nextInt(positiv.size())) :
+                "Antwort: "+(i%3 == 0? positiv.get(random.nextInt(positiv.size())) : i%3 == 1?
+                neutral.get(random.nextInt(neutral.size())) :
                 negativ.get(random.nextInt(negativ.size())))).queue();
     }
 
