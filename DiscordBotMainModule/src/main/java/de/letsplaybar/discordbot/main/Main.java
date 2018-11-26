@@ -25,6 +25,7 @@ public class Main {
      */
     public  Main(){
         File data = new File(".data");
+        System.clearProperty("file.encoding");
         System.setProperty("file.encoding" , "UTF-8");
         if(!data.exists()){
             data.mkdirs();

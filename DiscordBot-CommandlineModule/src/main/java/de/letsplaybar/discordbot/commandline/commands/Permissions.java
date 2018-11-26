@@ -35,7 +35,7 @@ public class Permissions implements Command {
             if(args[0].equalsIgnoreCase("add")){
                 try {
                     if(!sql.getSql().isInDatabase(args[1],"Permissions","Userid"))
-                        sql.addUser(Bot.getInstance().getBot().getUserById(args[2]).getName(),args[2]);
+                        sql.addUser(Bot.getInstance().getBot().getUserById(args[1]).getName(),args[1]);
                     sql.addPermisson(args[1],args[2]);
                     System.out.println("User with id="+args[1]+" permission="+args[2]+" addet");
                 } catch (SQLException e) {
