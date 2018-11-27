@@ -48,7 +48,7 @@ public class TrackManager extends AudioEventAdapter {
 
     @Override
     public void onTrackStart(AudioPlayer player, AudioTrack track) {
-        AudioInfo info = queue.element();
+        AudioInfo info = queue.poll();
         VoiceChannel vChan = null;
         if(isNotConnect()){
             if(info.getAuthor().getVoiceState().inVoiceChannel()){
