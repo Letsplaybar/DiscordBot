@@ -1,23 +1,25 @@
 package de.letsplaybar.discordbot.main.utils;
 
 import de.letsplaybar.discordbot.main.Bot;
-import net.dv8tion.jda.core.OnlineStatus;
-import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.entities.RichPresence;
-import net.dv8tion.jda.core.entities.impl.JDAImpl;
-import net.dv8tion.jda.core.managers.impl.PresenceImpl;
+import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.RichPresence;
+import net.dv8tion.jda.internal.JDAImpl;
+import net.dv8tion.jda.internal.managers.PresenceImpl;
 import org.json.JSONObject;
+
+import javax.annotation.Nullable;
 
 
 /**
  * @author Letsplaybar
  * Created on 05.09.2017.
  */
-public class Spielst extends Game {
+public class Spielst implements Activity {
 
     private String name;
     private String url;
-    private GameType type;
+    private ActivityType type;
 
     /**
      * holt dir das Game element
@@ -26,16 +28,25 @@ public class Spielst extends Game {
      * @param typ
      * @return
      */
-    public static  Spielst getSpielt(String name, String url, GameType typ){
+    public static  Spielst getSpielt(String name, String url, ActivityType typ){
         return new Spielst(name,url,typ);
     }
 
 
-    protected Spielst(String name, String url, GameType typ) {
-        super(name);
+    protected Spielst(String name, String url, ActivityType typ) {
         this.name = name;
         this.url = url;
         this.type = typ;
+    }
+
+    @Override
+    public boolean isRich() {
+        return false;
+    }
+
+    @Override
+    public RichPresence asRichPresence() {
+        return null;
     }
 
     @Override
@@ -49,8 +60,14 @@ public class Spielst extends Game {
     }
 
     @Override
-    public GameType getType() {
+    public ActivityType getType() {
         return type;
+    }
+
+    @Nullable
+    @Override
+    public Timestamps getTimestamps() {
+        return null;
     }
 
     /**
@@ -71,7 +88,7 @@ public class Spielst extends Game {
                             long timestamp, long since){
         if(Bot.getInstance().getBot() == null)
             return;
-        PresenceImpl presence = new PresenceImpl((JDAImpl) Bot.getInstance().getBot()).setCacheGame(this)
+        PresenceImpl presence = new PresenceImpl((JDAImpl) Bot.getInstance().getBot()).setCacheActivity(this)
                 .setCacheStatus(status);
         JSONObject data = presence.getFullPresence();
         JSONObject game = data.getJSONObject("game");

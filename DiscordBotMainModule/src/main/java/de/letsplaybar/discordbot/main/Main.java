@@ -116,7 +116,7 @@ public class Main {
     }
 
     /**
-     * Stopt den Bot, in dem es das Blockin element im init. aktiviert so das unload aufgerufen wird
+     * Stopt den Bot, in dem es das Block in element im init. aktiviert so das unload aufgerufen wird
      */
     public static void stop(){
         synchronized (instance){
