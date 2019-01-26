@@ -3,10 +3,10 @@ package de.letsplaybar.discordbot.gui.listener;
 import de.letsplaybar.discordbot.gui.GUIModule;
 import de.letsplaybar.discordbot.main.Bot;
 import javafx.application.Platform;
-import net.dv8tion.jda.core.events.guild.voice.GuildVoiceJoinEvent;
-import net.dv8tion.jda.core.events.guild.voice.GuildVoiceLeaveEvent;
-import net.dv8tion.jda.core.events.guild.voice.GuildVoiceMoveEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceMoveEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class VoiceChannelSwitchListener extends ListenerAdapter {
 

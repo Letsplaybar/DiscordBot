@@ -5,8 +5,8 @@ package de.letsplaybar.discordbot.music.manager;
  *         Created on 17.05.2017.
  */
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.User;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -10,7 +10,7 @@ import de.letsplaybar.discordbot.sql.SQLModule;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.api.entities.Activity;
 
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
@@ -32,7 +32,7 @@ public class Discord implements Command {
                     public void run() {
                         SQLModule sql = SQLModule.getInstance();
                         try {
-                            Bot.getInstance().startBot(sql.getToken(),sql.getSpielt(),"https://twitch.tv/letsplaybar", Game.GameType.valueOf(sql.getStreamt()),sql.getOnline(),sql.getState(),sql.getDetails(),sql.getAID(),sql.getLI(),sql.getSI(),sql.getLT(),sql.getST(),System.currentTimeMillis(),System.currentTimeMillis(),(ModuleLoader.getInstance().getActivateModules().contains("CommandModule"))?new CommandListener():null);
+                            Bot.getInstance().startBot(sql.getToken(),sql.getSpielt(),"https://twitch.tv/letsplaybar", Activity.ActivityType.valueOf(sql.getStreamt()),sql.getOnline(),sql.getState(),sql.getDetails(),sql.getAID(),sql.getLI(),sql.getSI(),sql.getLT(),sql.getST(),System.currentTimeMillis(),System.currentTimeMillis(),(ModuleLoader.getInstance().getActivateModules().contains("CommandModule"))?new CommandListener():null);
                         } catch (LoginException e) {
                             e.printStackTrace();
                         }
@@ -95,7 +95,7 @@ public class Discord implements Command {
                         System.out.println("Bot stopped");
                         SQLModule sql = SQLModule.getInstance();
                         try {
-                            Bot.getInstance().startBot(sql.getToken(),sql.getSpielt(),"https://twitch.tv/letsplaybar", Game.GameType.valueOf(sql.getStreamt()),sql.getOnline(),sql.getState(),sql.getDetails(),sql.getAID(),sql.getLI(),sql.getSI(),sql.getLT(),sql.getST(),System.currentTimeMillis(),System.currentTimeMillis(),(ModuleLoader.getInstance().getActivateModules().contains("CommandModule"))?new CommandListener():null);
+                            Bot.getInstance().startBot(sql.getToken(),sql.getSpielt(),"https://twitch.tv/letsplaybar", Activity.ActivityType.valueOf(sql.getStreamt()),sql.getOnline(),sql.getState(),sql.getDetails(),sql.getAID(),sql.getLI(),sql.getSI(),sql.getLT(),sql.getST(),System.currentTimeMillis(),System.currentTimeMillis(),(ModuleLoader.getInstance().getActivateModules().contains("CommandModule"))?new CommandListener():null);
                         } catch (LoginException e) {
                             e.printStackTrace();
                         }

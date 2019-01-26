@@ -2,8 +2,8 @@ package de.letsplaybar.discordbot.command.commands;
 
 import de.letsplaybar.discordbot.command.command.Command;
 import de.letsplaybar.discordbot.sql.SQLModule;
-import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;

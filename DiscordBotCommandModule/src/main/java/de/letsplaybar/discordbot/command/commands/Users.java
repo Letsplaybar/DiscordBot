@@ -2,12 +2,11 @@ package de.letsplaybar.discordbot.command.commands;
 
 import de.letsplaybar.discordbot.command.CommandModule;
 import de.letsplaybar.discordbot.command.command.Command;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 
 import java.awt.*;
 import java.io.IOException;
@@ -52,16 +51,15 @@ public class Users implements Command {
                 .addField("UserID",user.getUser().getId(),false)
                 .addField("Onlinestatus",user.getOnlineStatus().getKey(),false);
             try {
-                builder.addField("Spielt",user.getGame().getType()+"\n"+
-                    user.getGame().getName()+"\n"+
-                    (user.getGame().isRich()? user.getGame().asRichPresence().getDetails(): ""),false);
+                builder.addField("Spielt",user.getActivities().stream().map(s -> s.getType()+" : "+s.getName() + (s.isRich()? " : "+s.asRichPresence().getDetails():"")).collect(Collectors.joining("\n"))
+                        ,false);
             }catch (Exception ex){
 
             }
             builder.addField("Rollen",user.getRoles().stream().map(s -> s.getName()+", ")
                         .collect(Collectors.joining()),false)
-                .addField("Server betreten",user.getJoinDate().format(formatter),false)
-                .addField("Discord beigetreten",user.getUser().getCreationTime().format(formatter),false)
+                .addField("Server betreten",user.getTimeJoined().format(formatter),false)
+                .addField("Discord beigetreten",user.getUser().getTimeCreated().format(formatter),false)
                 .setThumbnail(user.getUser().getAvatarUrl());
 
         channel.sendMessage( builder.build()).queue();

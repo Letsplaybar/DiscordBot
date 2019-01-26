@@ -1,7 +1,6 @@
 package de.letsplaybar.discordbot.commandline.command;
 
 import de.letsplaybar.discordbot.command.CommandModule;
-import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 import java.util.ArrayList;
 

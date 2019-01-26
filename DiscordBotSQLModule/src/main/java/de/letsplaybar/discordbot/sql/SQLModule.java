@@ -5,13 +5,16 @@ import de.letsplaybar.discordbot.sql.utils.SQLLite;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import lombok.Getter;
-import net.dv8tion.jda.core.OnlineStatus;
+import net.dv8tion.jda.api.OnlineStatus;
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class SQLModule implements Module {

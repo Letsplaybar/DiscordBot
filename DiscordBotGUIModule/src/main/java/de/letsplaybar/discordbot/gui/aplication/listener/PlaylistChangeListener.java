@@ -8,8 +8,7 @@ import de.letsplaybar.discordbot.music.MusicModule;
 import de.letsplaybar.discordbot.sql.SQLModule;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.api.entities.Guild;
 
 import java.sql.SQLException;
 

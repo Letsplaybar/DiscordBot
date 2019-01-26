@@ -1,7 +1,6 @@
 package de.letsplaybar.discordbot.main;
 
 import de.letsplaybar.discordbot.main.module.Module;
-import de.letsplaybar.discordbot.main.module.ModuleLoader;
 import de.letsplaybar.discordbot.main.utils.Spielst;
 import lombok.Getter;
 import net.dv8tion.jda.api.AccountType;
@@ -18,8 +17,7 @@ import java.util.List;
 public class Bot implements Module{
 
     private @Getter static Bot instance;
-    private @Getter
-    JDA bot;
+    private @Getter JDA bot;
 
     @Override
     public List<String> getRequementsModule() {

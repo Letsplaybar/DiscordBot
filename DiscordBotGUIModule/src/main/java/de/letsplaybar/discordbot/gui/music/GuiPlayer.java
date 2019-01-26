@@ -1,11 +1,10 @@
 package de.letsplaybar.discordbot.gui.music;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import de.letsplaybar.discordbot.main.Bot;
 import de.letsplaybar.discordbot.music.manager.AudioPlayerSendHandler;
 import de.letsplaybar.discordbot.music.manager.Player;
 import de.letsplaybar.discordbot.music.manager.TrackManager;
-import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.api.entities.Guild;
 
 import java.util.AbstractMap;
 

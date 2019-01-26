@@ -1,15 +1,15 @@
 package de.letsplaybar.discordbot.gui.aplication.settings.presence;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import de.letsplaybar.discordbot.main.utils.Spielst;
 import de.letsplaybar.discordbot.sql.SQLModule;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.api.entities.Activity;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class Controller {
 
@@ -50,7 +50,7 @@ public class Controller {
         sql.setAID(appid_field.getText());
         sql.setLT(ltext_field.getText());
         sql.setDetails(details_field.getText());
-        Spielst.getSpielt(sql.getSpielt(),"https://twitch.tv/letsplaybar", Game.GameType.valueOf(sql.getStreamt())).setPresence(sql.getOnline(),sql.getState(),sql.getDetails(),sql.getAID(),sql.getLI(),sql.getSI(),sql.getLT(),sql.getST(),System.currentTimeMillis(),System.currentTimeMillis());
+        Spielst.getSpielt(sql.getSpielt(),"https://twitch.tv/letsplaybar", Activity.ActivityType.valueOf(sql.getStreamt())).setPresence(sql.getOnline(),sql.getState(),sql.getDetails(),sql.getAID(),sql.getLI(),sql.getSI(),sql.getLT(),sql.getST(),System.currentTimeMillis(),System.currentTimeMillis());
         ((Stage)details_field.getScene().getWindow()).close();
     }
 

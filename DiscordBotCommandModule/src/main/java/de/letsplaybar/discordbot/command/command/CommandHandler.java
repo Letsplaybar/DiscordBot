@@ -1,8 +1,8 @@
 package de.letsplaybar.discordbot.command.command;
 
 import de.letsplaybar.discordbot.sql.SQLModule;
-import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 
 import java.io.IOException;
 import java.sql.SQLException;

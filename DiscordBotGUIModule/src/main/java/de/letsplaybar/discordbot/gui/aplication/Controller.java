@@ -1,10 +1,5 @@
 package de.letsplaybar.discordbot.gui.aplication;
 
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.ResourceBundle;
-
 import de.letsplaybar.discordbot.command.utils.CommandListener;
 import de.letsplaybar.discordbot.gui.aplication.help.about.About;
 import de.letsplaybar.discordbot.gui.aplication.help.log.Log;
@@ -18,10 +13,10 @@ import de.letsplaybar.discordbot.gui.aplication.settings.status.Status;
 import de.letsplaybar.discordbot.gui.aplication.settings.token.Token;
 import de.letsplaybar.discordbot.gui.aplication.settings.weiteres.Weiteres;
 import de.letsplaybar.discordbot.gui.listener.VoiceChannelSwitchListener;
+import de.letsplaybar.discordbot.gui.music.GuiTrackManager;
 import de.letsplaybar.discordbot.main.Bot;
 import de.letsplaybar.discordbot.main.module.ModuleLoader;
 import de.letsplaybar.discordbot.music.MusicModule;
-import de.letsplaybar.discordbot.gui.music.GuiTrackManager;
 import de.letsplaybar.discordbot.sql.SQLModule;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -35,9 +30,13 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import lombok.Getter;
 import lombok.Setter;
-import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.api.entities.Activity;
 
 import javax.security.auth.login.LoginException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.ResourceBundle;
 
 public class Controller {
 
@@ -113,7 +112,7 @@ public class Controller {
             public void run() {
                 SQLModule sql = SQLModule.getInstance();
                 try {
-                    Bot.getInstance().startBot(sql.getToken(),sql.getSpielt(),"https://twitch.tv/letsplaybar", Game.GameType.valueOf(sql.getStreamt()),sql.getOnline(),sql.getState(),sql.getDetails(),sql.getAID(),sql.getLI(),sql.getSI(),sql.getLT(),sql.getST(),System.currentTimeMillis(),System.currentTimeMillis(),(ModuleLoader.getInstance().getActivateModules().contains("CommandModule"))?new CommandListener():null,new VoiceChannelSwitchListener());
+                    Bot.getInstance().startBot(sql.getToken(),sql.getSpielt(),"https://twitch.tv/letsplaybar", Activity.ActivityType.valueOf(sql.getStreamt()),sql.getOnline(),sql.getState(),sql.getDetails(),sql.getAID(),sql.getLI(),sql.getSI(),sql.getLT(),sql.getST(),System.currentTimeMillis(),System.currentTimeMillis(),(ModuleLoader.getInstance().getActivateModules().contains("CommandModule"))?new CommandListener():null,new VoiceChannelSwitchListener());
                 } catch (LoginException e) {
                     e.printStackTrace();
                 }
@@ -167,7 +166,7 @@ public class Controller {
                 });
                 SQLModule sql = SQLModule.getInstance();
                 try {
-                    Bot.getInstance().startBot(sql.getToken(),sql.getSpielt(),"https://twitch.tv/letsplaybar", Game.GameType.valueOf(sql.getStreamt()),sql.getOnline(),sql.getState(),sql.getDetails(),sql.getAID(),sql.getLI(),sql.getSI(),sql.getLT(),sql.getST(),System.currentTimeMillis(),System.currentTimeMillis(),(ModuleLoader.getInstance().getActivateModules().contains("CommandModule"))?new CommandListener():null);
+                    Bot.getInstance().startBot(sql.getToken(),sql.getSpielt(),"https://twitch.tv/letsplaybar", Activity.ActivityType.valueOf(sql.getStreamt()),sql.getOnline(),sql.getState(),sql.getDetails(),sql.getAID(),sql.getLI(),sql.getSI(),sql.getLT(),sql.getST(),System.currentTimeMillis(),System.currentTimeMillis(),(ModuleLoader.getInstance().getActivateModules().contains("CommandModule"))?new CommandListener():null);
                 } catch (LoginException e) {
                     e.printStackTrace();
                 }

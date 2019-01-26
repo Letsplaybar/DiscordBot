@@ -54,6 +54,7 @@ public class Main {
 
             synchronized (instance){
                 instance.wait();
+                System.out.println("Stop");
             }
 
         } catch (InterruptedException e) {
@@ -98,15 +99,11 @@ public class Main {
     public static List<Class<? extends Module>> getModules(){
         ArrayList<Class<? extends Module>> list = new ArrayList<>();
         try{
-            ClassPath path = ClassPath.from(new URLClassLoader(new URL[]{Main.class.getResource("module")}));
+            ClassPath path = ClassPath.from(new URLClassLoader(new URL[]{instance.getClass().getResource("module")}));
             for(ClassPath.ClassInfo info : path.getTopLevelClassesRecursive("de.letsplaybar.discordbot")){
                 if(Arrays.asList(info.load().getInterfaces()).contains(Module.class)){
                     Class<?> clazz = info.load();
-                    for(Class<?> c : clazz.getInterfaces())
-                        if(c.equals(Module.class)) {
-                            list.add((Class<? extends Module>) clazz);
-                            break;
-                        }
+                    list.add((Class<? extends Module>) clazz);
                 }
             }
         } catch (IOException e) {

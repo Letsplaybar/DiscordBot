@@ -4,16 +4,12 @@ import de.letsplaybar.discordbot.command.CommandModule;
 import de.letsplaybar.discordbot.command.command.Command;
 import de.letsplaybar.discordbot.main.module.ModuleLoader;
 import de.letsplaybar.discordbot.music.MusicModule;
-import lombok.Setter;
-import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.text.ParseException;
 import java.util.Arrays;
-import java.util.Scanner;
 
 /**
  * @author Letsplaybar

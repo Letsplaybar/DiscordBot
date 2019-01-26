@@ -5,15 +5,14 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 import de.letsplaybar.discordbot.gui.GUIModule;
 import de.letsplaybar.discordbot.main.Bot;
-import de.letsplaybar.discordbot.music.manager.AudioInfo;
 import de.letsplaybar.discordbot.music.manager.Player;
 import de.letsplaybar.discordbot.music.manager.TrackManager;
 import de.letsplaybar.discordbot.sql.SQLModule;
 import javafx.application.Platform;
 import lombok.Getter;
 import lombok.Setter;
-import net.dv8tion.jda.core.entities.VoiceChannel;
-import net.dv8tion.jda.core.managers.AudioManager;
+import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.managers.AudioManager;
 
 import java.sql.SQLException;
 import java.util.Random;
