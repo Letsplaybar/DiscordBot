@@ -2,24 +2,35 @@ package de.letsplaybar.discordbot.main.utils;
 
 import de.letsplaybar.discordbot.main.Bot;
 import net.dv8tion.jda.api.OnlineStatus;
-import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.ActivityFlag;
 import net.dv8tion.jda.api.entities.RichPresence;
-import net.dv8tion.jda.internal.JDAImpl;
-import net.dv8tion.jda.internal.managers.PresenceImpl;
-import org.json.JSONObject;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.EnumSet;
 
 
 /**
  * @author Letsplaybar
  * Created on 05.09.2017.
  */
-public class Spielst implements Activity {
+public class Spielst implements RichPresence {
 
     private String name;
     private String url;
     private ActivityType type;
+    private OnlineStatus status;
+    private String state;
+    private String details;
+    private String application_id;
+    private String large_image;
+    private String small_image;
+    private String large_text;
+    private String small_text;
+    private long timestamp;
+    private long since;
+
+
 
     /**
      * holt dir das Game element
@@ -28,12 +39,16 @@ public class Spielst implements Activity {
      * @param typ
      * @return
      */
-    public static  Spielst getSpielt(String name, String url, ActivityType typ){
-        return new Spielst(name,url,typ);
+    public static  Spielst getSpielt(String name, String url, ActivityType typ,OnlineStatus status, String state, String details, String application_id,
+                                     String large_image, String small_image, String large_text, String small_text,
+                                     long timestamp, long since){
+        return new Spielst(name,url,typ,status,state,details,application_id,large_image,small_image,large_text,small_text,timestamp, since);
     }
 
 
-    protected Spielst(String name, String url, ActivityType typ) {
+    protected Spielst(String name, String url, ActivityType typ,OnlineStatus status, String state, String details, String application_id,
+                      String large_image, String small_image, String large_text, String small_text,
+                      long timestamp, long since) {
         this.name = name;
         this.url = url;
         this.type = typ;
@@ -70,42 +85,80 @@ public class Spielst implements Activity {
         return null;
     }
 
-    /**
-     * Setzt das Rich Presence element
-     * @param status
-     * @param state
-     * @param details
-     * @param application_id
-     * @param large_image
-     * @param small_image
-     * @param large_text
-     * @param small_text
-     * @param timestamp
-     * @param since
-     */
-    public void setPresence(OnlineStatus status, String state, String details, String application_id,
-                            String large_image, String small_image, String large_text, String small_text,
-                            long timestamp, long since){
-        if(Bot.getInstance().getBot() == null)
-            return;
-        PresenceImpl presence = new PresenceImpl((JDAImpl) Bot.getInstance().getBot()).setCacheActivity(this)
-                .setCacheStatus(status);
-        JSONObject data = presence.getFullPresence();
-        JSONObject game = data.getJSONObject("game");
-        game.put("state",state);
-        game.put("details", details);
-        game.put("application_id", application_id);
-        JSONObject assets = new JSONObject();
-        game.put("timestamps",new JSONObject().put("start",timestamp));
-        assets.put("large_image", large_image);
-        assets.put("small_image", small_image);
-        assets.put("large_text", large_text);
-        assets.put("small_text", small_text);
-        game.put("assets",assets);
-        game.put("since",since);
-        data.put("game",game);
-        ((JDAImpl) Bot.getInstance().getBot())
-                .getClient().send((new JSONObject()).put("d", data).put("op", 3).toString());
-        System.out.println((new JSONObject()).put("d", data).put("op", 3).toString());
+
+
+    public void setPresence(){
+        Bot.getInstance().getBot().getPresence().setActivity(this);
+    }
+
+    @Override
+    public long getApplicationIdLong() {
+        return Long.parseLong(application_id);
+    }
+
+    @Nonnull
+    @Override
+    public String getApplicationId() {
+        return application_id;
+    }
+
+    @Nullable
+    @Override
+    public String getSessionId() {
+        return "4b2fdce12f639de8bfa7e3591b71a0d679d7c93f";
+    }
+
+    @Nullable
+    @Override
+    public String getSyncId() {
+        return "e7eb30d2ee025ed05c71ea495f770b76454ee4e0";
+    }
+
+    @Override
+    public int getFlags() {
+        return ActivityFlag.JOIN_REQUEST.getOffset();
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public long getSince() {
+        return since;
+    }
+
+    @Override
+    public EnumSet<ActivityFlag> getFlagSet() {
+        return EnumSet.of(ActivityFlag.JOIN_REQUEST);
+    }
+
+    @Nullable
+    @Override
+    public String getState() {
+        return state;
+    }
+
+    @Nullable
+    @Override
+    public String getDetails() {
+        return details;
+    }
+
+    @Nullable
+    @Override
+    public Party getParty() {
+        return new Party("party1234", 1, 6);
+    }
+
+    @Nullable
+    @Override
+    public Image getLargeImage() {
+        return new Image(getApplicationIdLong(), large_image, large_text);
+    }
+
+    @Nullable
+    @Override
+    public Image getSmallImage() {
+        return new Image(getApplicationIdLong(), small_image, small_text);
     }
 }

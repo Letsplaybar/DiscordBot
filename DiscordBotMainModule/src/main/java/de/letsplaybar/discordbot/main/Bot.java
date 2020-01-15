@@ -68,9 +68,9 @@ public class Bot implements Module{
         if(bot == null){
             JDABuilder builder = new JDABuilder(AccountType.CLIENT)
                     .setToken(token)
-                    .setAudioEnabled(true)
                     .setStatus(status)
-                    .setActivity(Spielst.getSpielt(spiel,url,type))
+                    .setActivity(Spielst.getSpielt(spiel, url, type,status, state, details, application_id, large_image,
+                            small_image, large_text,small_text,timestamp, since))
                     .setBulkDeleteSplittingEnabled(false);
             for(ListenerAdapter listener: listeners)
                 if(listener != null)
@@ -89,8 +89,7 @@ public class Bot implements Module{
                     e.printStackTrace();
                 }
             }
-            Spielst.getSpielt(spiel, url, type).setPresence(status, state, details, application_id, large_image,
-                    small_image, large_text,small_text,timestamp, since);
+
         }
     }
 

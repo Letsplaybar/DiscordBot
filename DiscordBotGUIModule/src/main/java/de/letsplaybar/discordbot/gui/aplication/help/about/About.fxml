@@ -7,7 +7,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="239.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.letsplaybar.discordbot.gui.aplication.help.about.Controller">
    <children>
       <Text id="infoa" layoutX="216.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Discord - Bot">
@@ -26,6 +25,6 @@
          </font>
       </Text>
       <Text id="infoc" layoutX="482.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2018 Letsplaybar" />
-      <Text id="infod" layoutX="115.0" layoutY="130.0" onMouseClicked="#openSIte" strokeType="OUTSIDE" strokeWidth="0.0" text="https://Letsplaybar.de" />
+      <Hyperlink id="infod" ellipsisString="" layoutX="115.0" layoutY="117.0" text="https://Letsplaybar.de" />
    </children>
 </AnchorPane>

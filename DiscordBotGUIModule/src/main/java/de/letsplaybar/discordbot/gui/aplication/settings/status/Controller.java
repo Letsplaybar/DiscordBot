@@ -37,7 +37,7 @@ public class Controller {
         sql.setOnline(online_box.getValue());
         sql.setStreamt(stream_box.getValue());
         sql.setSpielt(spielt_field.getText());
-        Spielst.getSpielt(sql.getSpielt(),"https://twitch.tv/letsplaybar", Activity.ActivityType.valueOf(sql.getStreamt())).setPresence(sql.getOnline(),sql.getState(),sql.getDetails(),sql.getAID(),sql.getLI(),sql.getSI(),sql.getLT(),sql.getST(),System.currentTimeMillis(),System.currentTimeMillis());
+        Spielst.getSpielt(sql.getSpielt(),"https://twitch.tv/letsplaybar", Activity.ActivityType.valueOf(sql.getStreamt()),sql.getOnline(),sql.getState(),sql.getDetails(),sql.getAID(),sql.getLI(),sql.getSI(),sql.getLT(),sql.getST(),System.currentTimeMillis(),System.currentTimeMillis()).setPresence();
         ((Stage)spielt_field.getScene().getWindow()).close();
     }
 

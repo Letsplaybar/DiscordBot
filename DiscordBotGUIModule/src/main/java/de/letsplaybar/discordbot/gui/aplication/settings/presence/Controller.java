@@ -50,7 +50,7 @@ public class Controller {
         sql.setAID(appid_field.getText());
         sql.setLT(ltext_field.getText());
         sql.setDetails(details_field.getText());
-        Spielst.getSpielt(sql.getSpielt(),"https://twitch.tv/letsplaybar", Activity.ActivityType.valueOf(sql.getStreamt())).setPresence(sql.getOnline(),sql.getState(),sql.getDetails(),sql.getAID(),sql.getLI(),sql.getSI(),sql.getLT(),sql.getST(),System.currentTimeMillis(),System.currentTimeMillis());
+        Spielst.getSpielt(sql.getSpielt(),"https://twitch.tv/letsplaybar", Activity.ActivityType.valueOf(sql.getStreamt()),sql.getOnline(),sql.getState(),sql.getDetails(),sql.getAID(),sql.getLI(),sql.getSI(),sql.getLT(),sql.getST(),System.currentTimeMillis(),System.currentTimeMillis()).setPresence();
         ((Stage)details_field.getScene().getWindow()).close();
     }
 
